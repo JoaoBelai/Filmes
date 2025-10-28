@@ -1,0 +1,30 @@
+.chipTempo{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    width: 70px;
+    height: 20px;
+    background-color: rgba(197, 197, 197, 0.2);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5.9px);
+    -webkit-backdrop-filter: blur(5.9px);
+    border-radius: 30px;
+    padding: 5px;
+}
+
+.iconeTempo{
+    width: 16px;
+    height: 16px;
+}
+
+.iconeTempo img{
+    width: 100%;
+    height: 100%;
+}
+
+.chipTempo p{
+    font-size: 12px;
+    color: #fff;
+    font-weight: 400;
+}

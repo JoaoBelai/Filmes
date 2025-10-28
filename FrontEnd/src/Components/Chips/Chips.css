@@ -1,0 +1,9 @@
+.categoriaChip{
+    height: 15px;
+    background-color: #2D1257;
+    border-radius: 10px;
+    padding: 7px;
+    color: #fff;
+    font-weight: 400;
+    font-size: 16px;
+}
