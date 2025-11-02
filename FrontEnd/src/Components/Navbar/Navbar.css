@@ -5,10 +5,12 @@
     align-items: center;
     justify-content: space-between;
     padding: 15px 30px 15px 30px;
-    background: rgba(91, 91, 91, 0.3);
+    background: rgba(91, 91, 91, 0.5);
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(5.9px);
     -webkit-backdrop-filter: blur(5.9px);
+    position: absolute;
+    z-index: 2;
 }
 
 .logoNavbar{
@@ -25,7 +27,7 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    width: 345px;
+    width: 365px;
     height: 30px;
     cursor: pointer;
 }

@@ -1,0 +1,43 @@
+.ator{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.fotoAtor{
+    width: 450px;
+    height: 520px;
+    border-radius: 22px;
+}
+
+.fotoAtor img{
+    width: 100%;
+    height: 100%;
+    border-radius: 22px;
+    object-fit: cover;
+}
+
+.infoAtor{
+    width: 85%;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+    background-color: rgba(16, 1, 27, 0.8);
+    padding: 15px;
+    border-radius: 12px;
+    position: relative;
+    bottom: 80px;
+}
+
+.infoAtorEscrita h2{
+    color: #fff;
+    font-weight: 600;
+}
+
+.infoAtorEscrita p{
+    color: #fff;
+    font-weight: 400;
+}

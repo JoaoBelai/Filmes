@@ -1,12 +1,15 @@
 import './Banner.css'
 import Info from '../../Assets/Icons/info.png'
 import Chips from '../Chips/Chips';
+import { NavLink } from 'react-router-dom';
 
 type BannerProp = {
     poster: string,
+    categoria: string[],
+    link: string
 }
 
-function Banner({poster}: BannerProp){
+function Banner({poster, categoria, link}: BannerProp){
     return(
         <>
             <figure className='imagemBanner'>
@@ -14,14 +17,14 @@ function Banner({poster}: BannerProp){
             </figure>
 
             <div className='chipsBanner'>
-                <Chips categoria='Aventura'/>
-                <Chips categoria='Ação'/>
-                <Chips categoria='Sci-Fi'/>
+                {categoria.map (cat =>(
+                    <Chips key={cat} categoria={cat}/>
+                ))}
             </div>
 
-            <button>
-                <img src={Info} alt="Ícone de Informações" /> Saiba Mais
-            </button>
+            <NavLink to={link} className="botaoBanner">
+              <img src={Info} alt="Ícone de Informações" /> Saiba Mais
+            </NavLink>
         </>
     );
 }

@@ -1,9 +1,19 @@
 .categoriaChip{
-    height: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 50px;
+    max-width: 150px;
+    height: 30px;
     background-color: #2D1257;
-    border-radius: 10px;
-    padding: 7px;
+    border-radius: 40px;
+    padding: 5px 15px 5px 15px;
     color: #fff;
     font-weight: 400;
-    font-size: 16px;
+    font-size: 18px;
+}
+
+.categoriaChip:hover{
+    transform: scale(1.2);
+    transition: 250ms ease-in-out;
 }
