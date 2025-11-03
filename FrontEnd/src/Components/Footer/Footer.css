@@ -1,0 +1,17 @@
+.footer{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: row;
+    background-color: #2D1257;
+    height: 250px;
+    z-index: 2;
+    position: absolute;
+    bottom: -2760px;
+}
+
+.infoFooter{
+    display: flex;
+    align-items: center;
+}

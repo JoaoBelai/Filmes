@@ -1,0 +1,38 @@
+import './Footer.css'
+
+
+function Footer(){
+    return(
+        <footer className='footer'>
+            <figure className='imagemFooter'>
+                <img src="" alt="Logo do Site" />
+            </figure>
+
+            <article className='infoFooter'>
+                <div className='escritaFooter'>
+                    <h4>Sobre</h4>
+                    <div className='linksFooter'>
+                        <p>Sobre Nós</p>
+                        <p>informações Corporativas</p>
+                        <p>Trabalhe Conosco</p>
+                        <p>Central de Ajuda</p>
+                    </div>
+                </div>
+
+                <div className='escritaFooter'>
+                    <h4>Redes Sociais</h4>
+                    <div className='linksFooter'>
+                        <p>WhatsApp</p>
+                        <p>YouTube</p>
+                        <p>Instagram</p>
+                        <p>TikTok</p>
+                    </div>
+                </div>
+
+                <h4>Todos os direitos reservados João Belai | 2025</h4>
+            </article>
+        </footer>
+    );
+}
+
+export default Footer;

@@ -5,6 +5,7 @@ import Card from '../../Components/Card/Card';
 import Banner from '../../Components/Banner/Banner';
 import Categoria from '../../Components/Categoria/Categoria';
 import Ator from '../../Components/Ator/Ator';
+import Footer from '../../Components/Footer/Footer';
 import Vingadores from '../../Assets/Images/vingadores.png'
 import AvatarBanner from '../../Assets/Images/BannerAvatar.png';
 import Avatar from '../../Assets/Images/avatar.png';
@@ -253,6 +254,8 @@ function Home(){
                     </article>
                 </section>
             </main>
+
+            <Footer/>
         </>
     );
 }
