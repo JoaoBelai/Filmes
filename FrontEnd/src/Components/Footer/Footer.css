@@ -5,13 +5,56 @@
     justify-content: space-around;
     flex-direction: row;
     background-color: #2D1257;
-    height: 250px;
+    height: 230px;
     z-index: 2;
     position: absolute;
-    bottom: -2760px;
+    bottom: -2740px;
 }
 
 .infoFooter{
+    width: 70%;
     display: flex;
     align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.direitosReservados{
+    color: #fff;
+    margin-right: 200px;;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.escritaFooter{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    align-self: flex-start;
+    gap: 10px;
+}
+
+.escritaFooter h4{
+    color: #fff;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+
+.linksFooter{
+    width: 650px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    color: #fff;
+    font-weight: 400;
+}
+
+.linksFooter p:hover{
+    transition: 300ms ease-in-out;
+    border-bottom: 1px solid #fff;
+    cursor: pointer;
 }

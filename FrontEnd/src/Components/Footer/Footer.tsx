@@ -29,7 +29,7 @@ function Footer(){
                     </div>
                 </div>
 
-                <h4>Todos os direitos reservados João Belai | 2025</h4>
+                <h4 className='direitosReservados'>Todos os direitos reservados João Belai | 2025</h4>
             </article>
         </footer>
     );
