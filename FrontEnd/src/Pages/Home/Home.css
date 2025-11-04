@@ -1,9 +1,9 @@
-header{
+.headerHome{
     width: 100%;
 }
 
 
-main{
+.mainHome{
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -146,4 +146,10 @@ main{
     align-items: center;
     justify-content: center;
     gap: 180px;
+}
+
+.footerHome{
+    z-index: 2;
+    position: absolute;
+    bottom: -2740px;
 }

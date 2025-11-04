@@ -134,12 +134,12 @@ function Home(){
 
     return(
         <>
-            <header>
+            <header className='headerHome'>
                 <Navbar/>   
                 <Banner poster={filmeSelecionado.banner} categoria={filmeSelecionado.categoria} link={filmeSelecionado.link}/>
             </header>
 
-            <main>
+            <main className='mainHome'>
                 <section className='carrosselFilmes'>
                     {mockFilmes.map(filme =>(
                         <Card 
@@ -255,7 +255,7 @@ function Home(){
                 </section>
             </main>
 
-            <Footer/>
+            <Footer className='footerHome'/>
         </>
     );
 }

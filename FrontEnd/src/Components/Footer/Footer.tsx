@@ -1,11 +1,15 @@
 import './Footer.css'
+import Logo from '../../Assets/Images/Logo.png';
 
+type FooterProp ={
+    className?: string
+}
 
-function Footer(){
+function Footer({className=''}: FooterProp){
     return(
-        <footer className='footer'>
+        <footer className={`footer ${className}`}>
             <figure className='imagemFooter'>
-                <img src="" alt="Logo do Site" />
+                <img src={Logo} alt="Logo do Site" />
             </figure>
 
             <article className='infoFooter'>

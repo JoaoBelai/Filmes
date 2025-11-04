@@ -1,0 +1,33 @@
+.mainSobre{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 100px;
+    background: linear-gradient(180deg,rgba(13, 5, 54, 1) 23%, rgba(45, 18, 87, 1) 61%, rgba(110, 40, 175, 1) 100%);
+}
+
+.tituloSobre{
+    color: #fff;
+    font-size: 130px;
+    font-weight: 700;
+    margin-bottom: 180px;
+    margin-top: 180px;
+}
+
+.cardsSobre{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    gap: 130px;
+}
+.mensagemSobre{
+    margin-top: 160px;
+    margin-bottom: 40px;
+    text-align: center;
+    width: 900px;
+    color: #fff;
+    font-size: 40px;
+    font-weight: 500;
+}

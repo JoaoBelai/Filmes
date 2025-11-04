@@ -4,7 +4,7 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    padding: 15px 30px 15px 30px;
+    padding: 15px 35px 15px 35px;
     background: rgba(91, 91, 91, 0.5);
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(5.9px);
@@ -14,7 +14,7 @@
 }
 
 .logoNavbar{
-    width: 75px;
+    width: 80px;
 }
 
 .logoNavbar img{
@@ -27,8 +27,8 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    width: 365px;
-    height: 30px;
+    width: 400px;
+    height: 40px;
     cursor: pointer;
 }
 
@@ -45,7 +45,7 @@
 
 .search input::placeholder{
     color: #fff;
-    font-size: 14px;
+    font-size: 18px;
     font-weight: 500;
 }
 
@@ -73,7 +73,7 @@
 }
 
 .link{
-    font-size: 20px;
+    font-size: 24px;
     font-weight: 400;
     color: #fff;
     text-decoration: none;
@@ -86,8 +86,8 @@
 }
 
 .fotoPerfil{
-    width: 36px;
-    height: 36px;
+    width: 40px;
+    height: 40px;
 }
 
 .fotoPerfil img{

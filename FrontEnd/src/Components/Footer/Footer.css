@@ -6,13 +6,19 @@
     flex-direction: row;
     background-color: #2D1257;
     height: 230px;
-    z-index: 2;
-    position: absolute;
-    bottom: -2740px;
+}
+
+.imagemFooter{
+    width: 300px;
+}
+
+.imagemFooter img{
+    width: 100%;
+    height: 100%;
 }
 
 .infoFooter{
-    width: 70%;
+    width: 60%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -22,7 +28,7 @@
 
 .direitosReservados{
     color: #fff;
-    margin-right: 200px;;
+    margin-right: 340px;;
     font-size: 18px;
     font-weight: 700;
 }
