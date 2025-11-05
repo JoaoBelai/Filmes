@@ -1,9 +1,10 @@
 import './Home.css'
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Navbar from '../../Components/Navbar/Navbar';
 import Card from '../../Components/Card/Card';
 import Banner from '../../Components/Banner/Banner';
-import Categoria from '../../Components/Categoria/Categoria';
+import GridCategorias from '../../Components/GridCategorias/GridCategorias';
 import Ator from '../../Components/Ator/Ator';
 import Footer from '../../Components/Footer/Footer';
 import Vingadores from '../../Assets/Images/vingadores.png'
@@ -21,14 +22,6 @@ import BannerInterstellar from '../../Assets/Images/BannerInterstellar.png';
 import Aranha from '../../Assets/Images/aranha.png';
 import BannerAranha from '../../Assets/Images/BannerAranha.png';
 import Forest from '../../Assets/Images/Forest.png';
-import IconeAcao from '../../Assets/Icons/acao.png';
-import IconeAnimacao from '../../Assets/Icons/animacao.png';
-import IconeAventura from '../../Assets/Icons/aventura.png';
-import IconeTerror from '../../Assets/Icons/terror.png';
-import IconeComedia from '../../Assets/Icons/Comedia.png';
-import IconeScifi from '../../Assets/Icons/scifi.png';
-import IconeDrama from '../../Assets/Icons/drama.png';
-import IconeEsportivo from '../../Assets/Icons/esportivo.png';
 import BradPitt from '../../Assets/Images/BradPitt.png';
 import MargotRobbie from '../../Assets/Images/MargotRobbie.png';
 import MichelBJordan from '../../Assets/Images/MichelBJordan.png';
@@ -111,9 +104,14 @@ const mockFilmes: FilmeInfo[] = [
 
 function Home(){
     const [filmeSelecionado, setFilmeSelecionado] = useState<FilmeInfo>(mockFilmes[0])
+    const navigate = useNavigate()
 
     const handleSelecionarFilme = (filme: FilmeInfo) =>{
         setFilmeSelecionado(filme)
+    }
+
+    const handleRotaFilme = (id: Number) =>{
+        navigate(`/filmes/${id}`)
     }
 
     function shuffleArray<T>(array: T[]): T[] {
@@ -187,7 +185,7 @@ function Home(){
                             tempo={filme.tempo}
                             imagem={filme.imagem}
 
-                            onCardClick={() => handleSelecionarFilme(filme)}                        
+                            onCardClick={() => handleRotaFilme(filme.id)}                        
                         />
                         ))}
 
@@ -195,43 +193,7 @@ function Home(){
                 </section>
 
 
-                <section className='categorias'>
-                    <h1>CATEGORIAS</h1>
-                    <div className='gridCategorias'>
-                        <Categoria
-                            icone={IconeAcao}
-                            nome='Ação'
-                        />
-                        <Categoria
-                            icone={IconeAnimacao}
-                            nome='Animação'
-                        />
-                        <Categoria
-                            icone={IconeAventura}
-                            nome='Aventura'
-                        />
-                        <Categoria
-                            icone={IconeComedia}
-                            nome='Comédia'
-                        />
-                        <Categoria
-                            icone={IconeDrama}
-                            nome='Drama'
-                        />
-                        <Categoria
-                            icone={IconeEsportivo}
-                            nome='Esportivo'
-                        />
-                        <Categoria
-                            icone={IconeScifi}
-                            nome='Sci-fi'
-                        />
-                        <Categoria
-                            icone={IconeTerror}
-                            nome='Terror'
-                        />
-                    </div>
-                </section>
+                <GridCategorias/>
 
                 <section className='atores'>
                     <h1>PRINCIPAIS ATORES</h1>

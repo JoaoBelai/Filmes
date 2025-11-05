@@ -1,7 +1,7 @@
 .flipCard {
   background-color: transparent;
-  height: 585px; 
-  width: 400px; 
+  height: 530px; 
+  width: 380px; 
   perspective: 1000px; 
   cursor: pointer;
   transition: transform 300ms ease-out;
@@ -41,7 +41,7 @@
     border: 3px solid #A74FF9;
     border-radius: 22px;
     padding: 30px;
-    transform: rotateY(180deg);
+    
 }
 
 .cardFront{
@@ -55,6 +55,7 @@
     border: 4px solid #A74FF9;
     border-radius: 22px;
     padding: 30px;
+    transform: rotateY(-180deg);
 }
 
 .cardBack h2, .cardFront h2{
@@ -68,5 +69,5 @@
     color: #fff;
     width: 100%;
     font-weight: 400;
-    font-size: 26px;
+    font-size: 24px;
 }

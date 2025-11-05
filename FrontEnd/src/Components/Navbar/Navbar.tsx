@@ -20,7 +20,7 @@ function Navbar(){
 
             <div className='links'>
                 <NavLink to='/' className='link'>Home</NavLink>
-                <NavLink to='/' className='link'>Filmes</NavLink>
+                <NavLink to='/filmes' className='link'>Filmes</NavLink>
                 <NavLink to='/sobre' className='link'>Sobre Nós</NavLink>
             </div>
 

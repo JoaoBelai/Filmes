@@ -9,10 +9,10 @@
 
 .tituloSobre{
     color: #fff;
-    font-size: 130px;
+    font-size: 110px;
     font-weight: 700;
-    margin-bottom: 180px;
-    margin-top: 180px;
+    margin-top: 50px;
+    margin-bottom: 85px;
 }
 
 .cardsSobre{
@@ -23,11 +23,14 @@
     gap: 130px;
 }
 .mensagemSobre{
-    margin-top: 160px;
-    margin-bottom: 40px;
+    margin-top: 130px;
+    margin-bottom: 20px;
     text-align: center;
-    width: 900px;
+    width: 1000px;
     color: #fff;
     font-size: 40px;
-    font-weight: 500;
+    font-style: italic;
+    word-spacing: 5px;
+    border-top: 2px solid #fff;
+    padding-top: 70px;
 }

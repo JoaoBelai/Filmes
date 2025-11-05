@@ -50,9 +50,10 @@ function Sobre(){
                 </article>
 
                 <p className='mensagemSobre'>
-                    Muito obrigado por acessar nossa página, esperamos 
-                    que você se divirta com as nossas seleções, estoure 
-                    uma pipoca, pegue um refri e boa noite de filmes.
+                    Muito obrigado por acessar nossa página, 
+                    esperamos que você se divirta com as nossas 
+                    seleções, estoure uma pipoca, pegue um refri e 
+                    boa noite de filmes.
                 </p>
             </main>
 
