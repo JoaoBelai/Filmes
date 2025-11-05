@@ -1,6 +1,9 @@
 import './Filmes.css'
-import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { FreeMode } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/free-mode';
 import Navbar from '../../Components/Navbar/Navbar';
 import Footer from '../../Components/Footer/Footer';
 import GridCategorias from '../../Components/GridCategorias/GridCategorias';
@@ -100,22 +103,6 @@ const mockFilmes: FilmeInfo[] = [
 function Filmes(){
     const navigate = useNavigate();
 
-    function shuffleArray<T>(array: T[]): T[] {
-        let copiaArray = [...array]; 
-        
-        for (let i = copiaArray.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [copiaArray[i], copiaArray[j]] = [copiaArray[j], copiaArray[i]];
-        }
-            
-        return copiaArray;
-    }
-    
-    const [filmesAleatorios, setFilmesAleatorios] = useState(() => {  
-        const filmesEmbaralhados = shuffleArray(mockFilmes);
-        return filmesEmbaralhados.slice(0, 6);
-    });
-
     const handleRotaFilme = (id: Number) =>{
         navigate(`${id}`)
     }
@@ -138,24 +125,106 @@ function Filmes(){
 
                 <GridCategorias/>
 
-                <section className='destaque'>
+                <section className='destaquesSwiper'>
                     <h1>EM DESTAQUE</h1>
-                    <article className='filmesDestaque'>
-                        {filmesAleatorios.map(filme =>(
+                    <Swiper
+                      className='filmesDestaqueSwiper'
+                      modules={[FreeMode]}
+                      slidesPerView={'auto'}
+                      spaceBetween={115}
+                      freeMode={true}
+                    >
+                        {mockFilmes.map(filme =>(
+                          <SwiperSlide key={filme.id}>
                             <Card 
-                            key={filme.id}
-                            titulo={filme.titulo}
-                            categoria={filme.categoria} 
-                            tempo={filme.tempo}
-                            imagem={filme.imagem}
+                              titulo={filme.titulo}
+                              categoria={filme.categoria} 
+                              tempo={filme.tempo}
+                              imagem={filme.imagem}
 
-                            onCardClick={() => handleRotaFilme(filme.id)}                        
-                        />
+                              onCardClick={() => handleRotaFilme(filme.id)}                        
+                            />
+                          </SwiperSlide>
                         ))}
 
-                    </article>
+                    </Swiper>
                 </section>
-                
+
+                <section className='destaquesSwiper'>
+                    <h1>NOVOS</h1>
+                    <Swiper
+                      className='filmesDestaqueSwiper'
+                      modules={[FreeMode]}
+                      slidesPerView={'auto'}
+                      spaceBetween={115}
+                      freeMode={true}
+                    >
+                        {mockFilmes.map(filme =>(
+                          <SwiperSlide key={filme.id}>
+                            <Card 
+                              titulo={filme.titulo}
+                              categoria={filme.categoria} 
+                              tempo={filme.tempo}
+                              imagem={filme.imagem}
+
+                              onCardClick={() => handleRotaFilme(filme.id)}                        
+                            />
+                          </SwiperSlide>
+                        ))}
+
+                    </Swiper>
+                </section>
+
+                <section className='destaquesSwiper'>
+                    <h1>CLÁSSICOS</h1>
+                    <Swiper
+                      className='filmesDestaqueSwiper'
+                      modules={[FreeMode]}
+                      slidesPerView={'auto'}
+                      spaceBetween={115}
+                      freeMode={true}
+                    >
+                        {mockFilmes.map(filme =>(
+                          <SwiperSlide key={filme.id}>
+                            <Card 
+                              titulo={filme.titulo}
+                              categoria={filme.categoria} 
+                              tempo={filme.tempo}
+                              imagem={filme.imagem}
+
+                              onCardClick={() => handleRotaFilme(filme.id)}                        
+                            />
+                          </SwiperSlide>
+                        ))}
+
+                    </Swiper>
+                </section>
+
+                <section className='destaquesSwiper'>
+                    <h1>ACLAMADOS PELA CRÍTICA</h1>
+                    <Swiper
+                      className='filmesDestaqueSwiper'
+                      modules={[FreeMode]}
+                      slidesPerView={'auto'}
+                      spaceBetween={115}
+                      freeMode={true}
+                    >
+                        {mockFilmes.map(filme =>(
+                          <SwiperSlide key={filme.id}>
+                            <Card 
+                              titulo={filme.titulo}
+                              categoria={filme.categoria} 
+                              tempo={filme.tempo}
+                              imagem={filme.imagem}
+
+                              onCardClick={() => handleRotaFilme(filme.id)}                        
+                            />
+                          </SwiperSlide>
+                        ))}
+
+                    </Swiper>
+                </section>
+            
             </main>
 
             <Footer/>
