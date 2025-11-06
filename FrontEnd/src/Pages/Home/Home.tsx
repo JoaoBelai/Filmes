@@ -44,7 +44,7 @@ const mockFilmes: FilmeInfo[] = [
     tempo: '181', 
     imagem: Vingadores, 
     banner: VingadoresBanner,
-    link: '/' 
+    link: '/filmes/1' 
   },
   { 
     id: 2, 
@@ -53,7 +53,7 @@ const mockFilmes: FilmeInfo[] = [
     tempo: '192', 
     imagem: Avatar, 
     banner: AvatarBanner,
-    link: '/' 
+    link: '/filmes/2' 
   },
   { 
     id: 3, 
@@ -62,7 +62,7 @@ const mockFilmes: FilmeInfo[] = [
     tempo: '169', 
     imagem: Interstellar, 
     banner: BannerInterstellar,
-    link: '/'
+    link: '/filmes/3'
   },
   { 
     id: 4, 
@@ -71,7 +71,7 @@ const mockFilmes: FilmeInfo[] = [
     tempo: '165', 
     imagem: Superman, 
     banner: BannerSuper,
-    link: '/' 
+    link: '/filmes/4' 
   },
   { 
     id: 5, 
@@ -80,7 +80,7 @@ const mockFilmes: FilmeInfo[] = [
     tempo: '90', 
     imagem: Panda, 
     banner: PandaBanner,
-    link: '/' 
+    link: '/filmes/5' 
   },
   { 
     id: 6, 
@@ -89,7 +89,7 @@ const mockFilmes: FilmeInfo[] = [
     tempo: '140', 
     imagem: Aranha, 
     banner: BannerAranha,
-    link: '/' 
+    link: '/filmes/6' 
   },
   { 
     id: 7, 
@@ -98,7 +98,7 @@ const mockFilmes: FilmeInfo[] = [
     tempo: '156', 
     imagem: F1, 
     banner: F1Banner,
-    link: '/' 
+    link: '/filmes/7' 
   },
 ];
 

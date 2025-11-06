@@ -1,5 +1,4 @@
 import './Card.css'
-import { NavLink } from "react-router-dom";
 import ChipTempo from '../ChipTempo/ChipTempo';
 
 type CardProps = {
@@ -13,10 +12,8 @@ type CardProps = {
 function Card({imagem, titulo, categoria, tempo, onCardClick}:CardProps){
     return(
         <article className='card' onClick={onCardClick}>
-            <figure className='posterFilme'>
-                <NavLink to='/'>
-                    <img src={imagem} alt="Poster do Filme" />
-                </NavLink>
+            <figure className='posterFilme'>   
+                <img src={imagem} alt="Poster do Filme" />
             </figure>
 
             <section className='infoFilmeCard'>

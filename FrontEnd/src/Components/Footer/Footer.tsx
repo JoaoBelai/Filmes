@@ -9,7 +9,7 @@ function Footer({className=''}: FooterProp){
     return(
         <footer className={`footer ${className}`}>
             <figure className='imagemFooter'>
-                <img src={Logo} alt="Logo do Site" />
+                <img src={Logo} alt="Logo do Site Orion" />
             </figure>
 
             <article className='infoFooter'>

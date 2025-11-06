@@ -8,7 +8,7 @@ function Navbar(){
     return(
         <nav className='navbar'>
             <figure className='logoNavbar'>
-                <img src={Logo} alt="Logo Site" />
+                <img src={Logo} alt="Logo do Site Orion" />
             </figure>
 
             <article className='search'>
@@ -19,7 +19,7 @@ function Navbar(){
             </article>
 
             <div className='links'>
-                <NavLink to='/' className='link'>Home</NavLink>
+                <NavLink to='/home' className='link'>Home</NavLink>
                 <NavLink to='/filmes' className='link'>Filmes</NavLink>
                 <NavLink to='/sobre' className='link'>Sobre Nós</NavLink>
             </div>
