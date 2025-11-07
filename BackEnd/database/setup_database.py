@@ -1,5 +1,4 @@
 import mysql.connector
-import os
 from getpass import getpass
 import sys
 
