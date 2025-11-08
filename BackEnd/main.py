@@ -1,5 +1,6 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
+from urllib.parse import urlparse, parse_qs
 from filmes.filmes_api import get_filmes, post_filmes, delete_filmes, put_filmes
 
 class MyHandle(BaseHTTPRequestHandler):
@@ -23,8 +24,14 @@ class MyHandle(BaseHTTPRequestHandler):
 
 
     def do_GET(self):
-        if self.path.startswith('/filmes'):
-            get_filmes(self)
+        parsed_url = urlparse(self.path)
+
+        path_name = parsed_url.path
+
+        query_params = parse_qs(parsed_url.query)
+
+        if path_name.startswith('/filmes'):
+            get_filmes(self, query_params)
                 
         else:
             self._enviar_resposta(404, {"erro" : "Rota não encontrada"})
