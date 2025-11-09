@@ -2,6 +2,8 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
 from urllib.parse import urlparse, parse_qs
 from filmes.filmes_api import get_filmes, post_filmes, delete_filmes, put_filmes
+from users.user_api import handle_login
+from requests.resquests_api import handle_request
 
 class MyHandle(BaseHTTPRequestHandler):
 
@@ -25,36 +27,55 @@ class MyHandle(BaseHTTPRequestHandler):
 
     def do_GET(self):
         parsed_url = urlparse(self.path)
-
         path_name = parsed_url.path
-
         query_params = parse_qs(parsed_url.query)
 
         if path_name.startswith('/filmes'):
             get_filmes(self, query_params)
+
+        elif path_name == '/requests':
+            handle_request(self)
                 
         else:
             self._enviar_resposta(404, {"erro" : "Rota não encontrada"})
 
 
     def do_POST(self):
-        if self.path.startswith('/filmes'):
+        path_name = urlparse(self.path).path
+
+        if path_name == '/filmes':
             post_filmes(self)
+
+        elif path_name == '/login':
+            handle_login(self)
+
+        elif path_name == '/requests':
+            handle_request(self)
                 
         else:
             self._enviar_resposta(404, {"erro" : "Rota não encontrada"})
 
 
     def do_DELETE(self):
-        if self.path.startswith('/filmes'):
+        path_name = urlparse(self.path).path
+
+        if path_name.startswith('/filmes'):
             delete_filmes(self)
-                
+
+        elif path_name.startswith('/requests'): 
+            handle_request(self)
+            
         else:
             self._enviar_resposta(404, {"erro" : "Rota não encontrada"})
     
     def do_PUT(self):
-        if self.path.startswith('/filmes'):
+        path_name = urlparse(self.path).path
+
+        if path_name.startswith('/filmes'):
             put_filmes(self)
+
+        elif path_name.startswith('/requests'): 
+            handle_request(self)
         
         else:
             self._enviar_resposta(404, {"erro" : "Rota não encontrada"})

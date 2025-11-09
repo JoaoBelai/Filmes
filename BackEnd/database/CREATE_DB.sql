@@ -51,3 +51,14 @@ CREATE TABLE ator_filme(
     FOREIGN KEY (id_ator) REFERENCES ator(id) ON DELETE CASCADE,
     FOREIGN KEY (id_filme) REFERENCES filme(id) ON DELETE CASCADE
 );
+
+CREATE TABLE solicitacao (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    id_usuario_solicitante INT NOT NULL,
+    role_solicitante ENUM('admin', 'user') NOT NULL,
+    tipo ENUM('add', 'edit') NOT NULL,
+    id_filme_alvo INT NULL,
+    dados_propostos JSON NOT NULL,
+    status ENUM('pendente', 'aprovado', 'rejeitado') NOT NULL DEFAULT 'pendente',
+    FOREIGN KEY (id_filme_alvo) REFERENCES filme(id) ON DELETE CASCADE
+);

@@ -1,6 +1,6 @@
 Q_FILTER_BASE = """
     SELECT DISTINCT
-        f.id, f.titulo, f.poster, f.ano,
+        f.id, f.titulo, f.poster, f.banner, f.ano, f.duracao,
         GROUP_CONCAT(DISTINCT c.nome SEPARATOR ', ') AS generos,
         GROUP_CONCAT(DISTINCT d.nome SEPARATOR ', ') AS diretores,
         GROUP_CONCAT(DISTINCT a.nome SEPARATOR ', ') AS elenco

@@ -8,8 +8,8 @@ from filmes.querys_filmes import (
     Q_DELETE_FILME, Q_UPDATE_FILME, Q_DELETE_LINKS_ATOR,
     Q_DELETE_LINKS_CATEGORIA, Q_DELETE_LINKS_DIRETOR
 )
-
 from filtros.filtros import handle_filmes_filter
+from users.auth import verificar_admin
 
 def get_filmes(handler, query_params):
     conn = get_session()
@@ -45,6 +45,11 @@ def get_filmes(handler, query_params):
 
             cursor.execute(Q_GET_ALL_FILMES)
             filmes = cursor.fetchall()
+            
+            for filme in filmes:
+                if filme.get('generos'): filme['generos'] = filme['generos'].split(', ')
+                if filme.get('diretores'): filme['diretores'] = filme['diretores'].split(', ')
+                if filme.get('elenco'): filme['elenco'] = filme['elenco'].split(', ')
 
             handler._enviar_resposta(200, filmes)
 
@@ -62,6 +67,11 @@ def get_filmes(handler, query_params):
 
 
 def post_filmes(handler):
+    user_payload = verificar_admin(handler)
+
+    if not user_payload:
+        return
+    
     conn = get_session()
 
     if not conn:
@@ -145,6 +155,11 @@ def post_filmes(handler):
                 
 
 def delete_filmes(handler):
+    user_payload = verificar_admin(handler)
+
+    if not user_payload:
+        return
+    
     conn = get_session()
     if not conn:
         handler._enviar_resposta(500, {"erro": "Nao foi possivel conectar ao banco"})
@@ -184,6 +199,11 @@ def delete_filmes(handler):
 
         
 def put_filmes(handler):
+    user_payload = verificar_admin(handler)
+
+    if not user_payload:
+        return
+    
     conn = get_session()
     if not conn:
         handler._enviar_resposta(500, {"erro": "Nao foi possivel conectar ao banco"})

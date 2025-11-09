@@ -5,8 +5,10 @@ DB_CONFIG = {
     'user': 'admin', 
     'password': 'root', 
     'host': 'localhost',
-    'database': 'orion_filmes'
+    'database': 'Orion_Filmes'
 }
+
+JWT_SECRET_KEY = "chaveSuperSecreta1234"
 
 def get_session():
     try:
