@@ -1,14 +1,16 @@
 .mainLogin{
+    height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 74px;
+    padding: 83px;
     background: linear-gradient(180deg,rgba(13, 5, 54, 1) 23%, rgba(45, 18, 87, 1) 61%, rgba(110, 40, 175, 1) 100%);
 }
 
 .formLogin{
     width: 650px;
+    height: 779px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -21,7 +23,7 @@
 }
 
 .imageLogin{
-    width: 260px;
+    width: 240px;
     margin-bottom: 45px;
 }
 
@@ -31,10 +33,10 @@
 }
 
 .loginTitle{
-    font-size: 56px;
+    font-size: 50px;
     font-weight: 600;
     color: #fff;
-    margin-bottom: 40px;
+    margin-bottom: 50px;
 }
 
 .inputLogin{
@@ -44,17 +46,17 @@
     gap: 15px;
     width: 95%;
     color: #fff;
-    font-size: 28px;
+    font-size: 22px;
     padding: 0px 30px 0 30px;
     font-weight: 500;
-    margin-bottom: 45px;
+    margin-bottom: 65px;
 }
 
 .inputLogin #senha, #email{
     width: 100%;
-    height: 50px;
-    font-size: 22px;
-    font-weight: 600;
+    height: 45px;
+    font-size: 16px;
+    font-weight: 500;
     color: #fff;
     border: 2px solid #A74FF9;
     background-color: #2D1257;
@@ -67,16 +69,17 @@
 }
 
 .buttonLogin{
-    width: 290px;
-    height: 60px;
+    width: 280px;
+    height: 50px;
     background-color: #A74FF9;
     border: none;
     color: #0D0536;
-    font-size: 30px;
+    font-size: 26px;
     font-weight: 600;
     padding: 10px;
     border-radius: 7px;
     cursor: pointer;
+    margin-top: 30px;
 }
 
 .buttonLogin:hover{

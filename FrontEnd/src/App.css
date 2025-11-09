@@ -3,3 +3,16 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+.global-spinner-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(136, 136, 136, 0.5);
+  z-index: 9999;
+}
