@@ -1,7 +1,10 @@
 import './Filmes.css'
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { FreeMode } from 'swiper/modules';
+import { useLoading } from '../../Contexts/LoadingContext';
+import axios from 'axios';
 import 'swiper/css';
 import 'swiper/css/free-mode';
 import Navbar from '../../Components/Navbar/Navbar';
@@ -9,103 +12,84 @@ import Footer from '../../Components/Footer/Footer';
 import GridCategorias from '../../Components/GridCategorias/GridCategorias';
 import Card from '../../Components/Card/Card';
 import Add from '../../Assets/Icons/add.png';
-import Vingadores from '../../Assets/Images/vingadores.png'
-import AvatarBanner from '../../Assets/Images/BannerAvatar.png';
-import Avatar from '../../Assets/Images/avatar.png';
-import VingadoresBanner from '../../Assets/Images/BannerVingadores.png'
-import F1Banner from '../../Assets/Images/BannerF1.png';
-import F1 from '../../Assets/Images/f1.png'
-import Panda from '../../Assets/Images/panda.png';
-import PandaBanner from '../../Assets/Images/PandaBanner.png';
-import Superman from '../../Assets/Images/SuperMan.png';
-import BannerSuper from '../../Assets/Images/BannerSuper.png';
-import Interstellar from '../../Assets/Images/interstellar.png';
-import BannerInterstellar from '../../Assets/Images/BannerInterstellar.png';
-import Aranha from '../../Assets/Images/aranha.png';
-import BannerAranha from '../../Assets/Images/BannerAranha.png';
 
 type FilmeInfo = {
   id: number;
   titulo: string;
-  categoria: string[];
-  tempo: string;
+  generos: string[];
+  duracao: number;
+  poster: string;
   imagem: string;
   banner: string;
-  link: string;
 };
 
-const mockFilmes: FilmeInfo[] = [
-  { 
-    id: 1, 
-    titulo: 'Vingadores Ultimato', 
-    categoria: ["Sci-Fi", "Ação", "Aventura"], 
-    tempo: '181', 
-    imagem: Vingadores, 
-    banner: VingadoresBanner,
-    link: '/' 
-  },
-  { 
-    id: 2, 
-    titulo: 'Avatar o Caminho da Água', 
-    categoria: ["Sci-Fi", "Ação", "Aventura"], 
-    tempo: '192', 
-    imagem: Avatar, 
-    banner: AvatarBanner,
-    link: '/' 
-  },
-  { 
-    id: 3, 
-    titulo: 'Interstellar', 
-    categoria: ["Sci-fi", "Aventura"], 
-    tempo: '169', 
-    imagem: Interstellar, 
-    banner: BannerInterstellar,
-    link: '/'
-  },
-  { 
-    id: 4, 
-    titulo: 'Superman', 
-    categoria: ["Ação", "Fantasia", "Super Herói"], 
-    tempo: '165', 
-    imagem: Superman, 
-    banner: BannerSuper,
-    link: '/' 
-  },
-  { 
-    id: 5, 
-    titulo: 'Kung Fu Panda 2', 
-    categoria: ["Animação", "Ação", "Comédia"], 
-    tempo: '90', 
-    imagem: Panda, 
-    banner: PandaBanner,
-    link: '/' 
-  },
-  { 
-    id: 6, 
-    titulo: 'Homem-Aranha: Através do Aranhaverso', 
-    categoria: ["Animação", "Ação", "Aventura"], 
-    tempo: '140', 
-    imagem: Aranha, 
-    banner: BannerAranha,
-    link: '/' 
-  },
-  { 
-    id: 7, 
-    titulo: 'F1: O Filme', 
-    categoria: ["Esportivo", "Drama"], 
-    tempo: '156', 
-    imagem: F1, 
-    banner: F1Banner,
-    link: '/' 
-  },
-];
-
 function Filmes(){
+    const[filmesDestaque, setFilmesDestaque] = useState<FilmeInfo[]>([])
+    const[filmesClassicos, setFilmesClassicos] = useState<FilmeInfo[]>([])
+    const[filmesCritica, setFilmesCritica] = useState<FilmeInfo[]>([])
+    const[filmesNovos, setFilmesNovos] = useState<FilmeInfo[]>([])
+
+    const { setIsLoading } = useLoading();
+    const idFilmesDestaque = [ 21, 22, 12, 6, 9, 10, 15, 3, 8, 14]
+    const idFilmesClassicos = [ 1, 2, 4, 5, 6, 7, 8, 12]
+    const idFilmesCritica = [ 21, 22, 12, 4, 8, 7, 6, 5, 1, 2]
+    const idFilmesNovos = [ 24, 25, 26  , 27, 28, 29, 30, 31, 32, 33]
+
+  
     const navigate = useNavigate();
 
-    const handleRotaFilme = (id: Number) =>{
+    const handleRotaFilme = (id: number) =>{
         navigate(`${id}`)
     }
+
+    useEffect(() => {
+      const fetchListaPorIds = async (ids: number[]): Promise<FilmeInfo[]> =>{
+        const promessas = ids.map(async (id) => {
+          if (!id) return null;
+
+          try {
+                const response = await axios.get(`http://127.0.0.1:8000/filmes/${id}`);
+                return await response.data;
+              }catch (err) {
+                console.error(`Erro no fetch do filme ${id}:`, err);
+                return null; 
+              }
+        });
+
+        const FilmesBuscados= await Promise.all(promessas)
+
+        return FilmesBuscados.filter(filme => filme != null) as FilmeInfo[];
+      };
+
+      const buscarTodasAsListas = async () =>{
+        setIsLoading(true);
+          try{
+            const [
+              dataDestaques,
+              dataClassicos,
+              dataCritica,
+              dataNovos
+            ] = await Promise.all([
+              fetchListaPorIds(idFilmesDestaque),
+              fetchListaPorIds(idFilmesClassicos),
+              fetchListaPorIds(idFilmesCritica),
+              fetchListaPorIds(idFilmesNovos)
+            ]);
+
+            setFilmesDestaque(dataDestaques);
+            setFilmesClassicos(dataClassicos);
+            setFilmesCritica(dataCritica);
+            setFilmesNovos(dataNovos);
+
+          } catch (error) {
+            console.error("Erro ao buscar filmes: ", error)
+          } finally {
+            setIsLoading(false);
+          }
+        };
+
+        buscarTodasAsListas();
+    }, [])
 
     return(
         <>
@@ -134,13 +118,13 @@ function Filmes(){
                       spaceBetween={115}
                       freeMode={true}
                     >
-                        {mockFilmes.map(filme =>(
+                        {filmesDestaque.map(filme =>(
                           <SwiperSlide key={filme.id}>
                             <Card 
                               titulo={filme.titulo}
-                              categoria={filme.categoria} 
-                              tempo={filme.tempo}
-                              imagem={filme.imagem}
+                              categoria={filme.generos} 
+                              tempo={String(filme.duracao)}
+                              imagem={filme.poster}
 
                               onCardClick={() => handleRotaFilme(filme.id)}                        
                             />
@@ -159,13 +143,13 @@ function Filmes(){
                       spaceBetween={115}
                       freeMode={true}
                     >
-                        {mockFilmes.map(filme =>(
+                        {filmesNovos.map(filme =>(
                           <SwiperSlide key={filme.id}>
                             <Card 
                               titulo={filme.titulo}
-                              categoria={filme.categoria} 
-                              tempo={filme.tempo}
-                              imagem={filme.imagem}
+                              categoria={filme.generos} 
+                              tempo={String(filme.duracao)}
+                              imagem={filme.poster}
 
                               onCardClick={() => handleRotaFilme(filme.id)}                        
                             />
@@ -184,13 +168,13 @@ function Filmes(){
                       spaceBetween={115}
                       freeMode={true}
                     >
-                        {mockFilmes.map(filme =>(
+                        {filmesClassicos.map(filme =>(
                           <SwiperSlide key={filme.id}>
                             <Card 
                               titulo={filme.titulo}
-                              categoria={filme.categoria} 
-                              tempo={filme.tempo}
-                              imagem={filme.imagem}
+                              categoria={filme.generos} 
+                              tempo={String(filme.duracao)}
+                              imagem={filme.poster}
 
                               onCardClick={() => handleRotaFilme(filme.id)}                        
                             />
@@ -209,13 +193,13 @@ function Filmes(){
                       spaceBetween={115}
                       freeMode={true}
                     >
-                        {mockFilmes.map(filme =>(
+                        {filmesCritica.map(filme =>(
                           <SwiperSlide key={filme.id}>
                             <Card 
                               titulo={filme.titulo}
-                              categoria={filme.categoria} 
-                              tempo={filme.tempo}
-                              imagem={filme.imagem}
+                              categoria={filme.generos} 
+                              tempo={String(filme.duracao)}
+                              imagem={filme.poster}
 
                               onCardClick={() => handleRotaFilme(filme.id)}                        
                             />

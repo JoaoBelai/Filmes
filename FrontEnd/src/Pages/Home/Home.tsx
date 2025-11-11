@@ -42,9 +42,9 @@ function Home(){
                 const filmesRecebidos = response.data;
 
                 if(filmesRecebidos && filmesRecebidos.length > 0){
-                    setFilmeSelecionado(filmesRecebidos[0]);
                     
                     const filmesEmbaralhados = shuffleArray(filmesRecebidos);
+                    setFilmeSelecionado(filmesEmbaralhados[0]);
                     setFilmesCarrossel(filmesEmbaralhados.slice(0,7))
                     setFilmesAleatorios(filmesEmbaralhados.slice(8,14));
                 }
