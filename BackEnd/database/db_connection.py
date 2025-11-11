@@ -2,7 +2,7 @@ import mysql.connector
 from mysql.connector import errorcode
 
 DB_CONFIG = {
-    'user': 'admin', 
+    'user': 'root', 
     'password': 'root', 
     'host': 'localhost',
     'database': 'Orion_Filmes'

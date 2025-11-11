@@ -140,6 +140,56 @@ INSERT INTO filme (titulo, ano, duracao, sinopse, produtora, poster, banner) VAL
     'Gente Grande', 2010, 102, 
     'Cinco amigos de infância se reúnem após trinta anos para o funeral de seu antigo treinador de basquete e passam o fim de semana em uma casa no lago com suas famílias.', 
     'Columbia Pictures', 'https://m.media-amazon.com/images/M/MV5BMjA0ODYwNzU5Nl5BMl5BanBnXkFtZTcwNTI1MTgxMw@@._V1_FMjpg_UX1000_.jpg', 'https://m.media-amazon.com/images/S/pv-target-images/b71b06873fb90830776f41793940dddf06e5f38de22aa19e456d1aa3e1da483f.jpg'
+),
+(
+    'Gladiador 2', 2024, 148, 
+    'Anos após os eventos do original, Lucius Verus, o filho de Lucilla e sobrinho de Commodus, agora adulto, vive no deserto após renunciar sua linhagem, inspirado pelo sacrifício de Maximus.', 
+    'Paramount Pictures', 'https://cineset.com.br/wp-content/uploads/2024/11/gladiador-II-novo-poster-2309.jpg', 'https://www.cinecambui.com.br/storage/movies/EBF7D2MWEbgIWBzWruPMMHiQeRF15bqeCMkaJGQN.webp'
+),
+(
+    'Wicked: Parte Dois', 2025, 137, 
+    'A conclusão da jornada de Elphaba e Glinda, enquanto Elphaba é declarada a "Bruxa Má do Oeste" e Glinda se torna a "Bruxa Boa". Elas devem enfrentar as consequências de suas escolhas.', 
+    'Universal Pictures', 'https://cdn.europosters.eu/image/1300/286774.jpg', 'https://capricho.abril.com.br/wp-content/uploads/2025/05/Copia-de-THUMB-MATERIAS-40.png?resize=1080,565&crop=1'
+),
+(
+    'O Quarteto Fantástico', 2025, 114, 
+    'Quatro indivíduos ganham superpoderes após uma expedição espacial dar errado. Ambientado nos anos 60, eles devem aprender a usar suas habilidades para enfrentar uma ameaça cósmica.', 
+    'Marvel Studios', 'https://acdn-us.mitiendanube.com/stores/004/687/740/products/pos-04291-222257cf3c75ed077617510256207736-1024-1024.jpg', 'https://ingresso-a.akamaihd.net/prd/img/movie/quarteto-fantastico-primeiros-passos/bb8b9147-a76c-4435-92db-4ce024603f6f.webp'
+),
+(
+    'Superman', 2025, 129, 
+    'O filme explora a jornada de Superman para reconciliar sua herança Kryptoniana com sua criação humana como Clark Kent, guiado pela bondade em um mundo que vê a bondade como antiquada.', 
+    'DC Studios', 'https://ingresso-a.akamaihd.net/b2b/production/uploads/articles-content/8923869c-f8a6-4258-ba74-4170bf7fb202.jpg', 'https://i.ebayimg.com/images/g/-xEAAOSwN-lnaXUB/s-l1200.jpg'
+),
+(
+    'Missão: Impossível – Acerto de Contas Final', 2025, 169, 
+    'Ethan Hunt e sua equipe do FMI correm contra o tempo para impedir que "A Entidade", uma poderosa IA desonesta, caia nas mãos erradas e obtenha controle total sobre as redes globais.', 
+    'Paramount Pictures', 'https://m.media-amazon.com/images/M/MV5BODVmZGU2ZWYtMzlhNy00OThjLTk4NGYtNTFhNGQxZjMxMDhiXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg', 'https://www.geekzilla.com.br/wp-content/uploads/2023/09/Missao-Impossivel-Acerto-de-Cont-jpg.webp'
+),
+(
+    'O Senhor dos Anéis: A Guerra dos Rohirrim', 2024, 130, 
+    'Uma animação que explora a história por trás do Abismo de Helm, centenas de anos antes da Guerra do Anel, e a vida de seu fundador, Helm Hammerhand, o Rei de Rohan.', 
+    'New Line Cinema', 'https://nerdizmo.ig.com.br/wp-content/uploads/2024/09/O-Senhor-Dos-Aneis-A-Guerra-Dos-Rohirrim.jpg', 'https://nerdizmo.ig.com.br/wp-content/uploads/2024/09/O-Senhor-Dos-Aneis-A-Guerra-Dos-Rohirrim-Capa.jpg'
+),
+(
+    'Moana 2', 2024, 100, 
+    'Moana recebe um chamado inesperado de seus ancestrais e embarca em uma nova jornada pelos mares distantes da Oceania, reunindo-se com Maui e uma nova tripulação de marinheiros.', 
+    'Walt Disney Animation Studios', 'https://m.media-amazon.com/images/I/81vuQ-XTjyL.jpg', 'https://substackcdn.com/image/fetch/$s_!ezQL!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F742aa135-4a40-49eb-8107-abd2a30564a3_1200x675.heic'
+),
+(
+    'Nosferatu', 2025, 132, 
+    'Uma história gótica de obsessão entre uma jovem assombrada na Alemanha do século 19 e o antigo vampiro da Transilvânia que a persegue, trazendo um horror incalculável.', 
+    'Focus Features', 'https://m.media-amazon.com/images/I/715BLU5YPZL._AC_UF894,1000_QL80_.jpg', 'https://i0.wp.com/thefutureoftheforce.com/wp-content/uploads/2024/09/nosferatu-Universal-Pictures-official-Poster-header.jpg?fit=1024%2C579&ssl=1'
+),
+(
+    'Venom: A Última Rodada', 2024, 109, 
+    'Eddie Brock e Venom estão em fuga. Caçados por seus mundos, eles são forçados a tomar uma decisão devastadora que encerrará a jornada da dupla.', 
+    'Columbia Pictures', 'https://postercinema.eu/cdn/shop/files/venom-the-last-dance_oskewjth.jpg?v=1730230521', 'https://i0.wp.com/theartsshelf.com/wp-content/uploads/2024/06/Venom-The-Last-Dance.png?fit=1200%2C675&ssl=1'
+),
+(
+    'Como Treinar o Seu Dragão', 2025, 115, 
+    'A adaptação live-action da história de Soluço, um jovem viking que faz amizade com um dragão, Banguela, desafiando as tradições de seu povo.', 
+    'Universal Pictures', 'https://m.media-amazon.com/images/M/MV5BOTRlOWE5MDQtZGM5Yi00MDMyLWFjNzQtMDc1NzIzMjdmNzEyXkEyXkFqcGc@._V1_.jpg', 'https://i.ytimg.com/vi/prqwyv8mz30/maxresdefault.jpg'
 );
 
 INSERT INTO diretor (nome) VALUES
@@ -166,7 +216,17 @@ INSERT INTO diretor (nome) VALUES
 ('Rob Minkoff'),
 ('Robert Zemeckis'),
 ('Roger Allers'),
-('Steven Spielberg');
+('Steven Spielberg'),
+('Ridley Scott'),
+('Jon M. Chu'),
+('Matt Shakman'),
+('James Gunn'),
+('Christopher McQuarrie'),
+('Kenji Kamiyama'),
+('David Derrick Jr.'),
+('Robert Eggers'),
+('Kelly Marcel'),
+('Dean DeBlois');
 
 INSERT INTO ator (nome) VALUES
 ('Adam Sandler'),
@@ -187,7 +247,31 @@ INSERT INTO ator (nome) VALUES
 ('Sam Worthington'),
 ('Shameik Moore'),
 ('Tom Hanks'),
-('Tim Robbins');
+('Tim Robbins'),
+('Paul Mescal'),
+('Denzel Washington'),
+('Pedro Pascal'),
+('Cynthia Erivo'),
+('Ariana Grande'),
+('Vanessa Kirby'),
+('Joseph Quinn'),
+('Ebon Moss-Bachrach'),
+('David Corenswet'),
+('Rachel Brosnahan'),
+('Nicholas Hoult'),
+('Tom Cruise'),
+('Hayley Atwell'),
+('Brian Cox'),
+('Miranda Otto'),
+('Auliʻi Cravalho'),
+('Dwayne Johnson'),
+('Bill Skarsgård'),
+('Lily-Rose Depp'),
+('Tom Hardy'),
+('Chiwetel Ejiofor'),
+('Juno Temple'),
+('Mason Thames'),
+('Nico Parker');
 
 
 INSERT INTO categoria_filme (id_filme, id_categoria) VALUES
@@ -213,7 +297,17 @@ INSERT INTO categoria_filme (id_filme, id_categoria) VALUES
 (20, 21), (20, 5), (20, 1),
 (21, 14), (21, 5),
 (22, 16), (22, 23), (22, 1), (22, 2),
-(23, 3), (23, 20);
+(23, 3), (23, 20),
+(24, 1), (24, 5), (24, 19),
+(25, 15), (25, 7), (25, 22),
+(26, 23), (26, 1), (26, 6),
+(27, 23), (27, 1), (27, 6),
+(28, 1), (28, 9), (28, 2),
+(29, 16), (29, 1), (29, 7), (29, 14),
+(30, 16), (30, 2), (30, 3), (30, 15),
+(31, 8), (31, 7), (31, 5),
+(32, 23), (32, 1), (32, 3), (32, 6),
+(33, 7), (33, 2), (33, 20), (33, 1);
 
 INSERT INTO diretor_filme (id_filme, id_diretor) VALUES
 (1, 6),
@@ -238,7 +332,17 @@ INSERT INTO diretor_filme (id_filme, id_diretor) VALUES
 (20, 13),
 (21, 20),
 (22, 15),
-(23, 4);
+(23, 4),
+(24, 25),
+(25, 26),
+(26, 27),
+(27, 28),
+(28, 29),
+(29, 30),
+(30, 31),
+(31, 32),
+(32, 33),
+(33, 34);
 
 INSERT INTO ator_filme (id_filme, id_ator) VALUES
 (2, 2),
@@ -263,4 +367,14 @@ INSERT INTO ator_filme (id_filme, id_ator) VALUES
 (21, 3),
 (22, 17),
 (23, 1),
-(1, 19);
+(1, 19),
+(24, 20),
+(25, 23),
+(26, 22),
+(27, 28),
+(28, 31),
+(29, 33),
+(30, 35),
+(31, 37),
+(32, 39),
+(33, 42);
