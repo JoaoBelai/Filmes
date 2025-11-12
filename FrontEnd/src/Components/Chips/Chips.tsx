@@ -2,11 +2,12 @@ import './Chips.css'
 
 type ChipProp = {
     categoria: string
+    cor?: string
 }
 
-function Chips({categoria}: ChipProp){
+function Chips({categoria, cor}: ChipProp){
     return(
-        <p className='categoriaChip'>{categoria}</p>
+        <p className={`categoriaChip ${cor}`}>{categoria}</p>
     );
 }
 

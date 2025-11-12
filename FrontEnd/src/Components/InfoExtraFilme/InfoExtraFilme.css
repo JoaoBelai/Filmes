@@ -1,0 +1,47 @@
+.infoExtraFilme{
+    width: 81.5%;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 20px;
+    margin-top: 50px;
+    margin-bottom: 100px;
+}
+
+.infoExtraFilme h1{
+    color: #fff;
+    font-weight: 600;
+    font-size: 40px;
+}
+
+.boxOutrasInfos{
+    width: 100%;
+    height: 100px;  
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    background: rgba(16, 1, 27, 1);
+    border-radius: 10px;
+}
+
+.escrita{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-around;
+    gap: 10px;
+}
+
+.titleExtraInfo{
+    color: #fff;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.escritaExtraInfo{
+    color: #fff;
+    font-size: 20px;
+    font-weight: 400;
+}

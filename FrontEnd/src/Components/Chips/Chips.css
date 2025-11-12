@@ -13,6 +13,10 @@
     font-size: 18px;
 }
 
+.secondary{
+    background-color: #6E28AF;
+}
+
 .categoriaChip:hover{
     transform: scale(1.2);
     transition: 250ms ease-in-out;

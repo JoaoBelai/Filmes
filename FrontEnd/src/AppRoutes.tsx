@@ -3,6 +3,7 @@ import Home from './Pages/Home/Home'
 import Sobre from './Pages/Sobre/Sobre';
 import Filmes from './Pages/Filmes/Filmes';
 import Login from './Pages/Login/Login';
+import FilmeEspec from './Pages/FilmeEspec/FilmeEspec';
 
 function AppRoutes(){
     return(
@@ -11,6 +12,7 @@ function AppRoutes(){
             <Route path='/home' element={<Home/>}/>
             <Route path='/sobre' element={<Sobre/>}/>
             <Route path='/filmes' element={<Filmes/>}/>
+            <Route path='/filmes/:id' element={<FilmeEspec/>}/>
         </Routes>
     );
 

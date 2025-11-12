@@ -1,0 +1,81 @@
+.bannerFilmeEspec{
+    width: 100%;
+    height: 700px;
+}
+
+.bannerFilmeEspec img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.bannerFilmeEspec::before{
+    content: "";
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    bottom: 256px;
+    background: linear-gradient(to bottom, rgba(37,15,79,0) 42%, rgba(34,14,76, 0.6) 100%);  
+}
+
+.mainFilmeEspec{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(180deg,rgba(13, 5, 54, 1) 23%, rgba(45, 18, 87, 1) 61%, rgba(110, 40, 175, 1) 100%);
+}
+
+.recomendadosSwiper{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    margin-bottom: 160px;
+    overflow: hidden;
+}
+
+.recomendadosSwiper h1{
+    width: 100%;
+    color: #fff;
+    font-size: 32px;
+    font-weight: 600;
+    align-self: flex-start;
+    margin-bottom: 40px;
+    box-sizing: border-box;
+    margin-left: 170px;
+}
+
+.filmesRecomendadosSwiper{
+    width: 100%;
+    height: 400px;
+    box-sizing: border-box;
+    overflow: hidden;
+    padding-left: 9.5%;
+}
+
+.filmesRecomendadosSwiper .swiper-wrapper {
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+.filmesRecomendadosSwiper .swiper-slide {
+    width: auto !important;
+    height: auto;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.filmesRecomendadosSwiper .swiper-pagination-bullet {
+    margin-top: 100px;
+    background: #A74FF9;
+    opacity: 0.5;
+}
+
+.filmesRecomendadosSwiper .swiper-pagination-bullet-active {
+    opacity: 1;
+}   
