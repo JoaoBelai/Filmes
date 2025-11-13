@@ -1,12 +1,12 @@
 import './FilmeEspec.css';
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { useLoading } from '../../Contexts/LoadingContext';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { FreeMode } from 'swiper/modules';
 import axios from 'axios';
 import 'swiper/css';
 import 'swiper/css/free-mode';
-import { useLoading } from '../../Contexts/LoadingContext';
 import Navbar from '../../Components/Navbar/Navbar';
 import Footer from '../../Components/Footer/Footer';
 import InfoFilmes from '../../Components/InfoFilmes/InfoFilmes';
@@ -36,12 +36,37 @@ function FilmeEspec(){
 
     const navigate = useNavigate();
     
-    const handleRotaFilme = (id: number) =>{
+    const handleRotaFilme = (id: number) => {
         navigate(`/filmes/${id}`)
     }
 
-    const handleRotaForm = (id: number ) =>{
+    const handleRotaForm = (id: number ) => {
         navigate(`/form/${id}`)
+    }
+
+    const handleDeleteFilme = async (id: number) => {
+
+        if (!window.confirm("Tem certeza que deseja deletar este filme? Esta ação é permanente.")) {
+            return;
+        }
+        
+        setIsLoading(true)
+
+        try{
+            await axios.delete(`http://localhost:8000/filmes/${id}`)
+            navigate('/filmes')
+        
+        } catch (err) {
+            console.error("Erro ao deletar filme:", err);
+            if (axios.isAxiosError(err) && err.response) {
+                alert(`Erro: ${err.response.data.erro}`);
+            } else {
+                alert('Ocorreu um erro inesperado.');
+            }
+
+        } finally{
+            setIsLoading(false)
+        }
     }
 
     useEffect(()=>{
@@ -99,6 +124,7 @@ function FilmeEspec(){
                     poster={filme.poster}
                     sinopse={filme.sinopse}
                     onButtonClick={() => handleRotaForm(filme.id)}
+                    onDeleteClick={() => handleDeleteFilme(filme.id)}
                 />
 
                 <InfoExtraFilme

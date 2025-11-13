@@ -60,7 +60,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     localStorage.removeItem('jwt_token');
     setUser(null);
     delete axios.defaults.headers.common['Authorization'];
-    navigate('/login');
+    navigate('/');
   };
 
   const value = { user, authLoading, login, logout };

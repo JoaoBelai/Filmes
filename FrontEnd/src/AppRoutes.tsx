@@ -5,7 +5,7 @@ import Sobre from './Pages/Sobre/Sobre';
 import Filmes from './Pages/Filmes/Filmes';
 import Login from './Pages/Login/Login';
 import FilmeEspec from './Pages/FilmeEspec/FilmeEspec';
-import FormPage from './Pages/Form/FormPage';
+import FormPage from './Pages/FormPage/FormPage';
 
 function AppRoutes(){
     return(

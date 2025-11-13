@@ -1,6 +1,8 @@
 import './InfoFilmes.css'
+import { useAuth } from '../../Contexts/AuthContext';
 import Chips from '../Chips/Chips';
 import Lapis from '../../Assets/Icons/lapis.png';
+import Lixeira from '../../Assets/Icons/lixeira.png';
 
 type InfoFilmeProp ={
     titulo: string;
@@ -9,9 +11,11 @@ type InfoFilmeProp ={
     sinopse: string;
     poster: string;
     onButtonClick: () => void;
+    onDeleteClick: () => void;
 }
 
-function InfoFilmes({titulo, ano, generos, sinopse, poster, onButtonClick}:InfoFilmeProp){
+function InfoFilmes({titulo, ano, generos, sinopse, poster, onButtonClick, onDeleteClick}:InfoFilmeProp){
+    const { user } = useAuth();
     return(
         <section className='filmeContainer'>
             <article className='infoFilmeEspec'>
@@ -39,6 +43,12 @@ function InfoFilmes({titulo, ano, generos, sinopse, poster, onButtonClick}:InfoF
                     <img src={Lapis} alt="Ícone de lápis para edição" />
                     Editar
                 </button>
+                {user && user.role === 'admin' &&(
+                    <button className='botaoDeletar' onClick={onDeleteClick}>
+                        <img src={Lixeira} alt="Ícone de lixeira para Deleção" />
+                        Deletar
+                    </button>
+                )}
            </article>
 
         </section>

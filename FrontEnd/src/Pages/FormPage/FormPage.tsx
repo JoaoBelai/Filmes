@@ -1,11 +1,12 @@
 import './FormPage.css'
-import Navbar from '../../Components/Navbar/Navbar';
-import Footer from '../../Components/Footer/Footer';
-import Form from '../../Components/Form/Form';
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useLoading } from '../../Contexts/LoadingContext';
+import { useAuth } from '../../Contexts/AuthContext';
 import axios from 'axios';
+import Navbar from '../../Components/Navbar/Navbar';
+import Footer from '../../Components/Footer/Footer';
+import Form from '../../Components/Form/Form';
 
 
 type FilmeInfo = {
@@ -30,12 +31,14 @@ function FormPage(){
     const [initialData, setInitialData] = useState<FilmeInfo | undefined>(undefined);
     const {setIsLoading} = useLoading();
 
+    const { user, authLoading } = useAuth();    
+
     useEffect(()=>{
         if(isEdit){
             const buscarInfoFilme = async () =>{
                 setIsLoading(true);
                 try{
-                    const response = await axios.get(`http://127.0.0.1:8000/filmes/${id}`);
+                    const response = await axios.get(`http://localhost:8000/filmes/${id}`);
                     const filmeBuscado: FilmeInfo = response.data;
 
                     const dados  ={
@@ -66,9 +69,52 @@ function FormPage(){
 
     const title = isEdit ? 'Edição de Filme' : 'Adição de Filme';
 
-    const handleFormSubmit = (data: FilmeInfo) => {
-        console.log('Formulário enviado! Dados prontos (mas não enviados para a API):');
-        console.log(data); 
+    const handleFormSubmit = async (data: FilmeInfo) => {
+        setIsLoading(true);
+
+        if(authLoading || !user){
+            setIsLoading(false);
+            return
+        }
+
+        try{
+            if(user.role === 'admin'){
+                if(isEdit){
+                    await axios.put(`http://localhost:8000/filmes/${id}`, data);
+                } else {
+                    await axios.post('http://localhost:8000/filmes', data);
+                }
+                navigate('/filmes')
+            } else if (user.role === 'user'){
+                let requestData;
+                if(isEdit){
+                    requestData = {
+                        ...data,
+                        tipo_solicitacao: 'edit',
+                        id_filme_alvo: Number(id)
+                    };
+                } else {
+                    requestData = {
+                        ...data,
+                        tipo_solicitacao: 'add'
+                    };
+                }
+
+                await axios.post('http://localhost:8000/requests', requestData);
+                navigate('/filmes')
+            }
+
+        } catch (err) {
+            console.error("Erro ao enviar formulário:", err);
+            if (axios.isAxiosError(err) && err.response) {
+                alert(`Erro: ${err.response.data.erro}`);
+            } else {
+                alert('Ocorreu um erro inesperado.');
+            }
+
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     return(

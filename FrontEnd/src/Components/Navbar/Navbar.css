@@ -4,7 +4,7 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    padding: 15px 35px 15px 35px;
+    padding: 15px 45px 15px 45px;
     background: rgba(91, 91, 91, 0.5);
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(5.9px);
@@ -14,7 +14,7 @@
 }
 
 .logoNavbar{
-    width: 80px;
+    width: 80px;    
 }
 
 .logoNavbar img{
@@ -22,50 +22,8 @@
     height: 100%;
 }
 
-.search{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    width: 400px;
-    height: 40px;
-    cursor: pointer;
-}
-
-.search input{
-    background: none;
-    width: 90%;
-    height: 100%;
-    font-family: 'Montserrat', sansSerif;
-    color: #fff;    
-    border: none;
-    border-bottom: 2.5px solid #fff;
-    padding: 5px;
-}
-
-.search input::placeholder{
-    color: #fff;
-    font-size: 18px;
-    font-weight: 500;
-}
-
-.search input:hover{
-    transition: 350ms ease-in-out;
-    transform: scale(1.05);
-}
-
-.search figure{
-    width: 22px;
-    height: 22px;
-}
-
-.search figure img{
-    width: 100%;
-    height: 100%;
-}
-
 .links{
-    width: 520px;
+    width: 800px;
     display: flex;
     align-items: center;
     justify-content: space-around;
@@ -73,7 +31,7 @@
 }
 
 .link{
-    font-size: 24px;
+    font-size: 26px;
     font-weight: 400;
     color: #fff;
     text-decoration: none;
@@ -82,7 +40,7 @@
 
 .link:hover{
     transition: 300ms ease-in-out;
-    transform: scale(1.1);
+    transform: scale(1.12);
 }
 
 .fotoPerfil{
@@ -93,4 +51,30 @@
 .fotoPerfil img{
     width: 100%;
     height: 100%;
+}
+
+.logoutButton{
+    width: 140px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 5px;
+    background-color: #C80A00;
+    color: #fff;
+    font-weight: 600;
+    font-size: 22px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.logoutButton img{
+    width: 26px;
+    height: 26px;
+}
+
+.logoutButton:hover{
+    transform: scale(1.1);
+    transition: 300ms ease-in-out;
 }
