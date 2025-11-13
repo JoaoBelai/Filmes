@@ -5,7 +5,7 @@ Q_INSERT_SOLICITACAO = """
 """
 
 Q_GET_SOLICITACOES_PENDENTES = """
-    SELECT id, id_usuario_solicitante, role_solicitante, tipo, id_filme_alvo, status
+    SELECT id, id_usuario_solicitante, role_solicitante, tipo, id_filme_alvo, status, dados_propostos
     FROM solicitacao
     WHERE status = 'pendente'
 """
