@@ -65,6 +65,7 @@
     padding: 5px 10px 5px 10px;
     border-radius: 7px;
     resize: none;
+    font-family: 'Montserrat';
 }
 
 .inputForm textarea::placeholder{

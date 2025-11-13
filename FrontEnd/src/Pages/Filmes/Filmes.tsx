@@ -42,6 +42,10 @@ function Filmes(){
         navigate(`${id}`)
     }
 
+    const handleRotaForm = () =>{
+        navigate('/form')
+    }
+
     useEffect(() => {
       const fetchListaPorIds = async (ids: number[]): Promise<FilmeInfo[]> =>{
         const promessas = ids.map(async (id) => {
@@ -101,7 +105,7 @@ function Filmes(){
                 <article className='headerFilmes'>
                     <h1>Encontre seu novo clássico!</h1>
 
-                    <button className='adicionarFilme'>
+                    <button className='adicionarFilme' onClick={handleRotaForm}>
                         <img src={Add} alt="Ícone adiocionar" />
                         Novo Filme
                     </button>

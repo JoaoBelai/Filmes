@@ -86,3 +86,10 @@
     transform: scale(1.07);
     transition: 250ms ease-in-out;
 }
+
+.loginError{
+    color: #ff0000;
+    font-size: 20px;
+    font-weight: 700;
+    font-family: 'Montserrat';
+}

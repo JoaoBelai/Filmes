@@ -40,6 +40,10 @@ function FilmeEspec(){
         navigate(`/filmes/${id}`)
     }
 
+    const handleRotaForm = (id: number ) =>{
+        navigate(`/form/${id}`)
+    }
+
     useEffect(()=>{
         if(id){
             const buscarFilmeEspec = async () => { 
@@ -94,6 +98,7 @@ function FilmeEspec(){
                     generos={filme.generos}
                     poster={filme.poster}
                     sinopse={filme.sinopse}
+                    onButtonClick={() => handleRotaForm(filme.id)}
                 />
 
                 <InfoExtraFilme

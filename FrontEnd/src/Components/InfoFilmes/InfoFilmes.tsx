@@ -8,9 +8,10 @@ type InfoFilmeProp ={
     generos: string[];
     sinopse: string;
     poster: string;
+    onButtonClick: () => void;
 }
 
-function InfoFilmes({titulo, ano, generos, sinopse, poster}:InfoFilmeProp){
+function InfoFilmes({titulo, ano, generos, sinopse, poster, onButtonClick}:InfoFilmeProp){
     return(
         <section className='filmeContainer'>
             <article className='infoFilmeEspec'>
@@ -34,7 +35,7 @@ function InfoFilmes({titulo, ano, generos, sinopse, poster}:InfoFilmeProp){
             </article>
 
            <article className='buttonsFilme'>
-                <button className='botaoEditar'>
+                <button className='botaoEditar' onClick={onButtonClick}>
                     <img src={Lapis} alt="Ícone de lápis para edição" />
                     Editar
                 </button>

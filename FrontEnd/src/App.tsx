@@ -2,6 +2,7 @@ import './App.css'
 import { BrowserRouter } from "react-router-dom";
 import AppRoutes from './AppRoutes';
 import { LoadingProvider, useLoading } from './Contexts/LoadingContext'; 
+import { AuthProvider } from './Contexts/AuthContext'
 import { ClipLoader } from 'react-spinners';
 
 function GlobalSpinner() {
@@ -22,11 +23,13 @@ function App() {
       
       <LoadingProvider>
         <BrowserRouter>
+          <AuthProvider>
 
-          <GlobalSpinner />
-          
-          <AppRoutes />
+            <GlobalSpinner />
 
+            <AppRoutes />
+            
+          </AuthProvider>
         </BrowserRouter>
       </LoadingProvider>
     </>

@@ -1,4 +1,5 @@
 import { Route, Routes } from 'react-router-dom'
+import ProtectedRoute from './Components/ProtectedRoute/ProtectedRoute';
 import Home from './Pages/Home/Home'
 import Sobre from './Pages/Sobre/Sobre';
 import Filmes from './Pages/Filmes/Filmes';
@@ -10,12 +11,16 @@ function AppRoutes(){
     return(
         <Routes>
             <Route path='/' element={<Login/>}/>
-            <Route path='/home' element={<Home/>}/>
-            <Route path='/sobre' element={<Sobre/>}/>
-            <Route path='/filmes' element={<Filmes/>}/>
-            <Route path='/filmes/:id' element={<FilmeEspec/>}/>
-            <Route path='/form' element={<FormPage/>}/>
-            <Route path='/form/:id' element={<FormPage/>}/>
+            
+            <Route element={<ProtectedRoute />}>
+                <Route path='/home' element={<Home/>}/>
+                <Route path='/sobre' element={<Sobre/>}/>
+                <Route path='/filmes' element={<Filmes/>}/>
+                <Route path='/filmes/:id' element={<FilmeEspec/>}/>
+                <Route path='/form' element={<FormPage/>}/>
+                <Route path='/form/:id' element={<FormPage/>}/>
+            </Route>
+            
         </Routes>
     );
 
