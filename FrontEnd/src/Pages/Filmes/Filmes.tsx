@@ -1,17 +1,15 @@
-import './Filmes.css'
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { FreeMode } from 'swiper/modules';
-import { useLoading } from '../../Contexts/LoadingContext';
-import axios from 'axios';
-import 'swiper/css';
-import 'swiper/css/free-mode';
-import Navbar from '../../Components/Navbar/Navbar';
-import Footer from '../../Components/Footer/Footer';
-import GridCategorias from '../../Components/GridCategorias/GridCategorias';
-import Card from '../../Components/Card/Card';
-import Add from '../../Assets/Icons/add.png';
+import "./Filmes.css";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useDebounce } from "use-debounce";
+import { useLoading } from "../../Contexts/LoadingContext";
+import axios from "axios";
+import Navbar from "../../Components/Navbar/Navbar";
+import Footer from "../../Components/Footer/Footer";
+import CarrosselFilmes from "../../Components/CarrosselFilmes/CarrosselFilmes";
+import GridFilmes from "../../Components/GridFilmes/GridFilmes";
+import Filter from "../../Components/Filter/Filter";
+import Add from "../../Assets/Icons/add.png";
 
 type FilmeInfo = {
   id: number;
@@ -23,201 +21,121 @@ type FilmeInfo = {
   banner: string;
 };
 
-function Filmes(){
-    const[filmesDestaque, setFilmesDestaque] = useState<FilmeInfo[]>([])
-    const[filmesClassicos, setFilmesClassicos] = useState<FilmeInfo[]>([])
-    const[filmesCritica, setFilmesCritica] = useState<FilmeInfo[]>([])
-    const[filmesNovos, setFilmesNovos] = useState<FilmeInfo[]>([])
+function Filmes() {
+  const { setIsLoading } = useLoading();
 
-    const { setIsLoading } = useLoading();
-    const idFilmesDestaque = [ 21, 22, 12, 6, 9, 10, 15, 3, 8, 14]
-    const idFilmesClassicos = [ 1, 2, 4, 5, 6, 7, 8, 12]
-    const idFilmesCritica = [ 21, 22, 12, 4, 8, 7, 6, 5, 1, 2]
-    const idFilmesNovos = [ 24, 25, 26  , 27, 28, 29, 30, 31, 32, 33]
+  const navigate = useNavigate();
 
-  
-    const navigate = useNavigate();
+  const [searchTerm, setSearchTerm] = useState("");
+  const [anoMin, setAnoMin] = useState("");
+  const [anoMax, setAnoMax] = useState("");
+  const [categorias, setCategorias] = useState<string[]>([]);
+  const [filmesResult, setFilmesResult] = useState<FilmeInfo[]>([]);
+  const [isFiltrando, setIsFiltrando] = useState(false);
 
-    const handleRotaFilme = (id: number) =>{
-        navigate(`${id}`)
+  const [debouncedSearch] = useDebounce(searchTerm, 500);
+
+  const handleRotaForm = () => {
+    navigate("/form");
+  };
+
+  useEffect(() => {
+    const filtrosAtivos =
+      debouncedSearch.trim() !== "" ||
+      anoMin.trim() !== "" ||
+      anoMax.trim() !== "" ||
+      categorias.length > 0;
+
+    setIsFiltrando(filtrosAtivos);
+
+    if (!filtrosAtivos) {
+      setFilmesResult([]);
+      return;
     }
 
-    const handleRotaForm = () =>{
-        navigate('/form')
-    }
+    const fetchFilmesFiltrados = async () => {
+      setIsLoading(true);
 
-    useEffect(() => {
-      const fetchListaPorIds = async (ids: number[]): Promise<FilmeInfo[]> =>{
-        const promessas = ids.map(async (id) => {
-          if (!id) return null;
+      try {
+        const params = new URLSearchParams();
 
-          try {
-                const response = await axios.get(`http://127.0.0.1:8000/filmes/${id}`);
-                return await response.data;
-              }catch (err) {
-                console.error(`Erro no fetch do filme ${id}:`, err);
-                return null; 
-              }
-        });
+        if (debouncedSearch) params.append("search", debouncedSearch);
+        if (anoMin) params.append("ano_min", anoMin);
+        if (anoMax) params.append("ano_max", anoMax);
+        categorias.forEach((cat) => params.append("categoria", cat));
 
-        const FilmesBuscados= await Promise.all(promessas)
+        const queryString = params.toString();
+        const response = await axios.get(
+          `http://localhost:8000/filmes?${queryString}`
+        );
 
-        return FilmesBuscados.filter(filme => filme != null) as FilmeInfo[];
-      };
+        setFilmesResult(response.data);
+      } catch (err) {
+        console.error("Erro ao buscar filmes filtrados:", err);
+      } finally {
+        setIsLoading(false);
+      }
+    };
 
-      const buscarTodasAsListas = async () =>{
-        setIsLoading(true);
-          try{
-            const [
-              dataDestaques,
-              dataClassicos,
-              dataCritica,
-              dataNovos
-            ] = await Promise.all([
-              fetchListaPorIds(idFilmesDestaque),
-              fetchListaPorIds(idFilmesClassicos),
-              fetchListaPorIds(idFilmesCritica),
-              fetchListaPorIds(idFilmesNovos)
-            ]);
+    fetchFilmesFiltrados();
+  }, [debouncedSearch, anoMin, anoMax, categorias, setIsLoading]);
 
-            setFilmesDestaque(dataDestaques);
-            setFilmesClassicos(dataClassicos);
-            setFilmesCritica(dataCritica);
-            setFilmesNovos(dataNovos);
+  const handleCategoriaClick = (nomeCategoria: string) => {
+    setCategorias((prevCats) => {
+      if (prevCats.includes(nomeCategoria)) {
+        return prevCats.filter((cat) => cat !== nomeCategoria);
+      } else {
+        return [...prevCats, nomeCategoria];
+      }
+    });
+  };
 
-          } catch (error) {
-            console.error("Erro ao buscar filmes: ", error)
-          } finally {
-            setIsLoading(false);
-          }
-        };
+  const handleLimparFiltros = () => {
+    setSearchTerm("");
+    setAnoMin("");
+    setAnoMax("");
+    setCategorias([]);
+  };
 
-        buscarTodasAsListas();
-    }, [])
+  return (
+    <>
+      <header>
+        <Navbar />
+      </header>
 
-    return(
-        <>
-            <header>
-                <Navbar/>
-            </header>
+      <main className="mainFilmes">
+        <article className="headerFilmes">
+          <h1>Encontre seu novo clássico!</h1>
 
-            <main className='mainFilmes'>
-                <article className='headerFilmes'>
-                    <h1>Encontre seu novo clássico!</h1>
+          <button className="adicionarFilme" onClick={handleRotaForm}>
+            <img src={Add} alt="Ícone adiocionar" />
+            Novo Filme
+          </button>
+        </article>
 
-                    <button className='adicionarFilme' onClick={handleRotaForm}>
-                        <img src={Add} alt="Ícone adiocionar" />
-                        Novo Filme
-                    </button>
-                </article>
+        <Filter
+          searchTerm={searchTerm}
+          anoMin={anoMin}
+          anoMax={anoMax}
+          categoriasSelecionadas={categorias}
+          onSearchChange={setSearchTerm}
+          onAnoMinChange={setAnoMin}
+          onAnoMaxChange={setAnoMax}
+          onCategoriaClick={handleCategoriaClick}
+          onLimparFiltros={handleLimparFiltros}
+        />
 
-                <GridCategorias/>
+        {isFiltrando ? (
+          <GridFilmes filmes={filmesResult} />
+        ) : (
+          <CarrosselFilmes />
+        )}
 
-                <section className='destaquesSwiper'>
-                    <h1>EM DESTAQUE</h1>
-                    <Swiper
-                      className='filmesDestaqueSwiper'
-                      modules={[FreeMode]}
-                      slidesPerView={'auto'}
-                      spaceBetween={115}
-                      freeMode={true}
-                    >
-                        {filmesDestaque.map(filme =>(
-                          <SwiperSlide key={filme.id}>
-                            <Card 
-                              titulo={filme.titulo}
-                              categoria={filme.generos} 
-                              tempo={String(filme.duracao)}
-                              imagem={filme.poster}
+      </main>
 
-                              onCardClick={() => handleRotaFilme(filme.id)}                        
-                            />
-                          </SwiperSlide>
-                        ))}
-
-                    </Swiper>
-                </section>
-
-                <section className='destaquesSwiper'>
-                    <h1>NOVOS</h1>
-                    <Swiper
-                      className='filmesDestaqueSwiper'
-                      modules={[FreeMode]}
-                      slidesPerView={'auto'}
-                      spaceBetween={115}
-                      freeMode={true}
-                    >
-                        {filmesNovos.map(filme =>(
-                          <SwiperSlide key={filme.id}>
-                            <Card 
-                              titulo={filme.titulo}
-                              categoria={filme.generos} 
-                              tempo={String(filme.duracao)}
-                              imagem={filme.poster}
-
-                              onCardClick={() => handleRotaFilme(filme.id)}                        
-                            />
-                          </SwiperSlide>
-                        ))}
-
-                    </Swiper>
-                </section>
-
-                <section className='destaquesSwiper'>
-                    <h1>CLÁSSICOS</h1>
-                    <Swiper
-                      className='filmesDestaqueSwiper'
-                      modules={[FreeMode]}
-                      slidesPerView={'auto'}
-                      spaceBetween={115}
-                      freeMode={true}
-                    >
-                        {filmesClassicos.map(filme =>(
-                          <SwiperSlide key={filme.id}>
-                            <Card 
-                              titulo={filme.titulo}
-                              categoria={filme.generos} 
-                              tempo={String(filme.duracao)}
-                              imagem={filme.poster}
-
-                              onCardClick={() => handleRotaFilme(filme.id)}                        
-                            />
-                          </SwiperSlide>
-                        ))}
-
-                    </Swiper>
-                </section>
-
-                <section className='destaquesSwiper'>
-                    <h1>ACLAMADOS PELA CRÍTICA</h1>
-                    <Swiper
-                      className='filmesDestaqueSwiper'
-                      modules={[FreeMode]}
-                      slidesPerView={'auto'}
-                      spaceBetween={115}
-                      freeMode={true}
-                    >
-                        {filmesCritica.map(filme =>(
-                          <SwiperSlide key={filme.id}>
-                            <Card 
-                              titulo={filme.titulo}
-                              categoria={filme.generos} 
-                              tempo={String(filme.duracao)}
-                              imagem={filme.poster}
-
-                              onCardClick={() => handleRotaFilme(filme.id)}                        
-                            />
-                          </SwiperSlide>
-                        ))}
-
-                    </Swiper>
-                </section>
-            
-            </main>
-
-            <Footer/>
-        </>
-    );
+      <Footer />
+    </>
+  );
 }
 
 export default Filmes;

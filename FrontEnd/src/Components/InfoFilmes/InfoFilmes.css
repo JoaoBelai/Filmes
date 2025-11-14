@@ -29,7 +29,7 @@
 }
 
 .dadosFilme{
-    width: 80%;
+    width: 1240px;
     display: flex;
     align-items: flex-start;
     justify-content: center;
@@ -39,6 +39,7 @@
 }
 
 .dadosFilme h1{
+    width: 850px;
     font-size: 68px;
     color: #fff;
     font-weight: 700;

@@ -6,7 +6,6 @@ import axios from 'axios';
 import Navbar from '../../Components/Navbar/Navbar';
 import Card from '../../Components/Card/Card';
 import Banner from '../../Components/Banner/Banner';
-import GridCategorias from '../../Components/GridCategorias/GridCategorias';
 import Ator from '../../Components/Ator/Ator';
 import Footer from '../../Components/Footer/Footer';
 import Forest from '../../Assets/Images/Forest.png';
@@ -145,9 +144,6 @@ function Home(){
 
                     </article>
                 </section>
-
-
-                <GridCategorias/>
 
                 <section className='atores'>
                     <h1>PRINCIPAIS ATORES</h1>

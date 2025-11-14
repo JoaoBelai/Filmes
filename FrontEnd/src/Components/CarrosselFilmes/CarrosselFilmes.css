@@ -1,0 +1,52 @@
+.destaquesSwiper{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    margin-bottom: 160px;
+    overflow: hidden;
+}
+
+.destaquesSwiper h1{
+    width: 100%;
+    color: #fff;
+    font-size: 32px;
+    font-weight: 500;
+    align-self: flex-start;
+    margin-bottom: 40px;
+    box-sizing: border-box;
+}
+
+.filmesDestaqueSwiper{
+    width: 100%;
+    height: 400px;
+    box-sizing: border-box;
+    overflow: hidden;
+    padding-left: 5%;
+}
+
+.filmesDestaqueSwiper .swiper-wrapper {
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+.filmesDestaqueSwiper .swiper-slide {
+    width: auto !important;
+    height: auto;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.filmesDestaqueSwiper .swiper-pagination-bullet {
+    margin-top: 100px;
+    background: #A74FF9;
+    opacity: 0.5;
+}
+
+.filmesDestaquesSwiper .swiper-pagination-bullet-active {
+    opacity: 1;
+}

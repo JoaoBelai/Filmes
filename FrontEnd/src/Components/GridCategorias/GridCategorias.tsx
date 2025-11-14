@@ -9,44 +9,34 @@ import IconeScifi from '../../Assets/Icons/scifi.png';
 import IconeDrama from '../../Assets/Icons/drama.png';
 import IconeEsportivo from '../../Assets/Icons/esportivo.png';
 
-function GridCategorias(){
+type GridProps = {
+    categoriasSelecionadas: string[];
+    onCategoriaClick: (nome: string) => void;
+}
+
+const categoriasLista = [
+    { nome: 'Ação', icone: IconeAcao },
+    { nome: 'Animação', icone: IconeAnimacao },
+    { nome: 'Aventura', icone: IconeAventura },
+    { nome: 'Comédia', icone: IconeComedia },
+    { nome: 'Drama', icone: IconeDrama },
+    { nome: 'Esportivo', icone: IconeEsportivo },
+    { nome: 'Ficção Científica', icone: IconeScifi },
+    { nome: 'Terror', icone: IconeTerror }
+];
+
+function GridCategorias({categoriasSelecionadas, onCategoriaClick}: GridProps){
     return(
         <section className='categorias'>
-            <h1>CATEGORIAS</h1>
-            <div className='gridCategorias'>
+            {categoriasLista.map((cat)=>(
                 <Categoria
-                    icone={IconeAcao}
-                    nome='Ação'
+                    key={cat.nome}
+                    icone={cat.icone}
+                    nome={cat.nome}
+                    onClickCategoria={() => onCategoriaClick(cat.nome)}
+                    active={categoriasSelecionadas.includes(cat.nome)}
                 />
-                <Categoria
-                    icone={IconeAnimacao}
-                    nome='Animação'
-                />
-                <Categoria
-                    icone={IconeAventura}
-                    nome='Aventura'
-                />
-                <Categoria
-                    icone={IconeComedia}
-                    nome='Comédia'
-                />
-                <Categoria
-                    icone={IconeDrama}
-                    nome='Drama'
-                />
-                <Categoria
-                    icone={IconeEsportivo}
-                    nome='Esportivo'
-                />
-                <Categoria
-                    icone={IconeScifi}
-                    nome='Sci-fi'
-                />
-                <Categoria
-                    icone={IconeTerror}
-                    nome='Terror'
-                />
-            </div>
+            ))}
         </section>
     )
 }

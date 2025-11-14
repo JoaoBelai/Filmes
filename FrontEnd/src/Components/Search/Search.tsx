@@ -1,14 +1,20 @@
 import './Search.css'
-import Lupa from '../../Assets/Icons/lupa.png';
 
-function Search(){
+type SearchProp ={
+    placeholder: string,
+    value: string;
+    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+function Search({placeholder, value, onChange}: SearchProp){
     return(
-        <article className='search'>
-            <input type="text" placeholder='Pesquise um Filme, Ator ou Diretor'/>
-            <figure>
-                <img src={Lupa} alt="Lupa" />
-            </figure>
-        </article>
+        <input 
+            className="search" 
+            type="text" 
+            placeholder={placeholder}
+            value={value}
+            onChange={onChange}
+        />
     )
 }
 

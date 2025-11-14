@@ -1,10 +1,8 @@
 .categorias{
-    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-direction: column;
-    margin-bottom: 160px;
+    gap: 70px;
 }
 
 .categorias h1{
@@ -14,11 +12,4 @@
     font-weight: 500;
     align-self: flex-start;
     margin-bottom: 40px;
-}
-
-.gridCategorias{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 88px;
 }

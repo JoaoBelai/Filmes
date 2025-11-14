@@ -1,0 +1,74 @@
+.filterContainer{
+    width: 1700px;
+    height: 370px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: #6e28af66;
+    border-radius: 15px;
+    padding: 40px;
+    gap: 50px;
+    margin-bottom: 100px;
+}
+
+.titleFilter{
+    width: 100%;
+    color: #fff;
+    font-size: 32px;
+    font-weight: 500;
+    align-self: flex-start;
+}
+
+.filters{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+}
+
+.anoFiltro {
+    width: 220px;
+    height: 45px;
+    border-radius: 10px;
+    padding: 10px;
+    font-weight: 500;
+    font-size: 22px;
+    color: #6E28AF;
+}
+
+.anoFiltro::placeholder{
+    font-weight: 500;
+    font-size: 22px;
+    color: #6E28AF;
+}
+
+.limparFiltro{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 160px;
+    height: 50px;
+    background: rgba(91, 91, 91, 0.5);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5.9px);
+    -webkit-backdrop-filter: blur(5.9px);
+    border: 1.5px solid #fff;
+    border-radius: 6px;
+    color: #fff;
+    font-size: 22px;
+    font-weight: 700;
+    cursor: pointer;
+    padding: 10px;
+}
+
+.limparFiltro img{
+    width: 30px;
+    height: 30px;
+}
+
+.limparFiltro:hover{
+    transform: scale(1.1);
+    transition: 300ms ease-in-out;
+}

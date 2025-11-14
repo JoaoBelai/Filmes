@@ -1,18 +1,20 @@
 import './Categoria.css'
-import { NavLink } from "react-router-dom";
 
 type CategoriaProp = {
     icone: string,
-    nome: string
+    nome: string,
+    active?: boolean,
+    onClickCategoria: () => void
 }
 
-function Categoria({icone, nome}: CategoriaProp){
+function Categoria({icone, nome, active, onClickCategoria}: CategoriaProp){
+
+    const activeClass = active ? 'active' : '';
+
     return(
-        <article className='categoria'>
+        <article onClick={onClickCategoria} className={`categoria ${activeClass}`}>
             <figure className='categoriaImagem'>
-                <NavLink to='/'>
-                    <img src={icone} alt="Ícone da Categoria" />
-                </NavLink>
+                <img src={icone} alt="Ícone da Categoria" />
             </figure>
 
             <h3>{nome}</h3>
