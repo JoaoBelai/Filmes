@@ -2,8 +2,8 @@ import mysql.connector
 from mysql.connector import errorcode
 
 DB_CONFIG = {
-    'user': 'root', 
-    'password': 'senai', 
+    'user': 'admin', 
+    'password': 'root', 
     'host': 'localhost',
     'database': 'Orion_Filmes'
 }

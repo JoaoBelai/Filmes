@@ -60,3 +60,27 @@ Q_DELETE_LINKS_CATEGORIA = "DELETE FROM categoria_filme WHERE id_filme = %s"
 Q_DELETE_LINKS_DIRETOR = "DELETE FROM diretor_filme WHERE id_filme = %s"
 
 Q_DELETE_LINKS_ATOR = "DELETE FROM ator_filme WHERE id_filme = %s"
+
+Q_GET_DESTAQUES = Q_FILTER_BASE + """
+    WHERE f.id IN (21, 22, 12, 6, 9, 10, 15, 3, 8, 14)
+    GROUP BY f.id
+    ORDER BY FIELD(f.id, 21, 22, 12, 6, 9, 10, 15, 3, 8, 14)
+"""
+
+Q_GET_CLASSICOS = Q_FILTER_BASE + """
+    WHERE f.id IN (1, 2, 4, 5, 6, 7, 8, 12)
+    GROUP BY f.id
+    ORDER BY FIELD(f.id, 1, 2, 4, 5, 6, 7, 8, 12)
+"""
+
+Q_GET_CRITICA = Q_FILTER_BASE + """
+    WHERE f.id IN (21, 22, 12, 4, 8, 7, 6, 5, 1, 2)
+    GROUP BY f.id
+    ORDER BY FIELD(f.id, 21, 22, 12, 4, 8, 7, 6, 5, 1, 2)
+"""
+
+Q_GET_NOVOS = Q_FILTER_BASE + """
+    WHERE f.id IN (24, 25, 26, 27, 28, 29, 30, 31, 32, 33)
+    GROUP BY f.id
+    ORDER BY FIELD(f.id, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33)
+"""

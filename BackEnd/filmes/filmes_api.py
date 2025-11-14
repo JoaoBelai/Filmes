@@ -6,64 +6,86 @@ from filmes.querys_filmes import (
     Q_INSERT_ATOR, Q_INSERT_DIRETOR, Q_INSERT_CATEGORIA,
     Q_LINK_FILME_ATOR, Q_LINK_FILME_DIRETOR,
     Q_DELETE_FILME, Q_UPDATE_FILME, Q_DELETE_LINKS_ATOR,
-    Q_DELETE_LINKS_CATEGORIA, Q_DELETE_LINKS_DIRETOR
+    Q_DELETE_LINKS_CATEGORIA, Q_DELETE_LINKS_DIRETOR,
+    Q_GET_CLASSICOS, Q_GET_NOVOS, Q_GET_DESTAQUES, Q_GET_CRITICA
 )
 from filtros.filtros import handle_filmes_filter
 from users.auth import verificar_admin
 
-def get_filmes(handler, query_params):
-    conn = get_session()
+def _formatar_filmes_resposta(filmes_lista):
+    for filme in filmes_lista:
+        if filme.get('generos'): filme['generos'] = filme['generos'].split(', ')
+        if filme.get('diretores'): filme['diretores'] = filme['diretores'].split(', ')
+        if filme.get('elenco'): filme['elenco'] = filme['elenco'].split(', ')
+    return filmes_lista
 
+def _fetch_e_enviar(handler, query):
+    conn = get_session()
     if not conn:
         handler._enviar_resposta(500, {"erro": "Nao foi possivel conectar ao banco"})
         return
-
     cursor = None
     try:
-        if not query_params and handler.path.startswith('/filmes/'):
-            try:
-                id_filme = int(handler.path.split('/')[-1])
-
-                cursor = conn.cursor(dictionary=True)
-
-                cursor.execute(Q_GET_ONE_FILME, (id_filme,))
-                filme = cursor.fetchone()
-                    
-                if filme:
-                    if filme['generos']: filme['generos'] = filme['generos'].split(', ')
-                    if filme['diretores']: filme['diretores'] = filme['diretores'].split(', ')
-                    if filme['elenco']: filme['elenco'] = filme['elenco'].split(', ')                    
-                    handler._enviar_resposta(200, filme)
-                else:
-                    handler._enviar_resposta(404, {"erro" : "Filme não encontrado"})
-
-            except ValueError:
-                handler._enviar_resposta(400, {"erro": "ID invalido, deve ser um numero"})
-        
-        elif not query_params and handler.path == '/filmes':
-            cursor = conn.cursor(dictionary=True)
-
-            cursor.execute(Q_GET_ALL_FILMES)
-            filmes = cursor.fetchall()
-            
-            for filme in filmes:
-                if filme.get('generos'): filme['generos'] = filme['generos'].split(', ')
-                if filme.get('diretores'): filme['diretores'] = filme['diretores'].split(', ')
-                if filme.get('elenco'): filme['elenco'] = filme['elenco'].split(', ')
-
-            handler._enviar_resposta(200, filmes)
-
-        else:
-            handle_filmes_filter(handler, conn, query_params)
-
+        cursor = conn.cursor(dictionary=True)
+        cursor.execute(query)
+        filmes = cursor.fetchall()
+        filmes_formatados = _formatar_filmes_resposta(filmes) 
+        handler._enviar_resposta(200, filmes_formatados)
     except Exception as e:
         handler._enviar_resposta(500, {"erro": f"Erro no servidor: {e}"})
-        
     finally:
-        if cursor:
-            cursor.close()
-        if not query_params and conn and conn.is_connected():
-            conn.close()
+        if cursor: cursor.close()
+        if conn and conn.is_connected(): conn.close()
+
+def get_filmes(handler, query_params):
+
+    if not query_params and handler.path == '/filmes/destaques':
+        _fetch_e_enviar(handler, Q_GET_DESTAQUES)
+
+    elif not query_params and handler.path == '/filmes/classicos':
+        _fetch_e_enviar(handler, Q_GET_CLASSICOS)
+
+    elif not query_params and handler.path == '/filmes/novos':
+        _fetch_e_enviar(handler, Q_GET_NOVOS)
+
+    elif not query_params and handler.path == '/filmes/critica':
+        _fetch_e_enviar(handler, Q_GET_CRITICA)
+
+    elif not query_params and handler.path == '/filmes':
+        _fetch_e_enviar(handler, Q_GET_ALL_FILMES)
+
+    elif not query_params and handler.path.startswith('/filmes/'):
+        conn = get_session()
+
+        if not conn:
+            handler._enviar_resposta(500, {"erro": "Nao foi possivel conectar ao banco"})
+            return
+
+        cursor = None
+        try:
+            id_filme = int(handler.path.split('/')[-1])
+
+            cursor = conn.cursor(dictionary=True)
+
+            cursor.execute(Q_GET_ONE_FILME, (id_filme,))
+            filme = cursor.fetchone()
+
+            if filme:
+                filmes_formatados = _formatar_filmes_resposta([filme])
+                handler._enviar_resposta(200, filmes_formatados[0])
+            else:
+                handler._enviar_resposta(404, {"erro" : "Filme não encontrado"})
+
+        except ValueError:
+            handler._enviar_resposta(400, {"erro": "ID invalido, deve ser um numero"})
+        
+        finally:
+            if cursor: cursor.close()
+            if conn and conn.is_connected(): conn.close()
+
+    else:
+        conn = get_session()
+        handle_filmes_filter(handler, conn, query_params)
 
 
 def post_filmes(handler):
