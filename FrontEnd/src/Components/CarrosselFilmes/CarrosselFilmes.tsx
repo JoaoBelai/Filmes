@@ -26,10 +26,6 @@ function CarrosselFilmes(){
     const[filmesNovos, setFilmesNovos] = useState<FilmeInfo[]>([])
 
     const { setIsLoading } = useLoading();
-    const idFilmesDestaque = [ 21, 22, 12, 6, 9, 10, 15, 3, 8, 14]
-    const idFilmesClassicos = [ 1, 2, 4, 5, 6, 7, 8, 12]
-    const idFilmesCritica = [ 21, 22, 12, 4, 8, 7, 6, 5, 1, 2]
-    const idFilmesNovos = [ 24, 25, 26  , 27, 28, 29, 30, 31, 32, 33]
 
     const navigate = useNavigate();
 
@@ -38,43 +34,25 @@ function CarrosselFilmes(){
     }
 
     useEffect(() => {
-        const fetchListaPorIds = async (ids: number[]): Promise<FilmeInfo[]> =>{
-            const promessas = ids.map(async (id) => {
-            if (!id) return null;
-
-            try {
-                    const response = await axios.get(`http://127.0.0.1:8000/filmes/${id}`);
-                    return await response.data;
-                }catch (err) {
-                    console.error(`Erro no fetch do filme ${id}:`, err);
-                    return null; 
-                }
-            });
-
-            const FilmesBuscados= await Promise.all(promessas)
-
-            return FilmesBuscados.filter(filme => filme != null) as FilmeInfo[];
-        };
-
         const buscarTodasAsListas = async () =>{
             setIsLoading(true);
             try{
                 const [
-                dataDestaques,
-                dataClassicos,
-                dataCritica,
-                dataNovos
+                resDestaques,
+                resClassicos,
+                resCritica,
+                resNovos
                 ] = await Promise.all([
-                fetchListaPorIds(idFilmesDestaque),
-                fetchListaPorIds(idFilmesClassicos),
-                fetchListaPorIds(idFilmesCritica),
-                fetchListaPorIds(idFilmesNovos)
+                    axios.get('http://localhost:8000/filmes/destaques'),
+                    axios.get('http://localhost:8000/filmes/classicos'),
+                    axios.get('http://localhost:8000/filmes/critica'),
+                    axios.get('http://localhost:8000/filmes/novos'),
                 ]);
 
-                setFilmesDestaque(dataDestaques);
-                setFilmesClassicos(dataClassicos);
-                setFilmesCritica(dataCritica);
-                setFilmesNovos(dataNovos);
+                setFilmesDestaque(resDestaques.data);
+                setFilmesClassicos(resClassicos.data);
+                setFilmesCritica(resCritica.data);
+                setFilmesNovos(resNovos.data);
 
             } catch (error) {
                 console.error("Erro ao buscar filmes: ", error)
