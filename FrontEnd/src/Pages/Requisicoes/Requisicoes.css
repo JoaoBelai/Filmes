@@ -1,0 +1,23 @@
+.mainRequisicoes{
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 150px;
+    background: linear-gradient(180deg, rgba(13, 5, 54, 1) 23%, rgba(45, 18, 87, 1) 61%, rgba(110, 40, 175, 1) 100%);
+}
+
+.requisicoesTitle{
+    font-size: 40px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 100px;
+}
+
+.semRequisicoes{
+    font-size: 30px;
+    font-weight: 500;
+    color: #fff;
+    margin-bottom: 100px;
+}

@@ -1,11 +1,31 @@
 import './Navbar.css'
 import { NavLink } from "react-router-dom";
 import { useAuth } from '../../Contexts/AuthContext';
+import { confirmAlert } from 'react-confirm-alert'; 
+import 'react-confirm-alert/src/react-confirm-alert.css';
 import Logo from '../../Assets/Images/Logo.png';
 import Logout from '../../Assets/Icons/logout.png';
 
 function Navbar(){
     const { user, logout } = useAuth();
+
+    const handleLogoutClick = () => {
+        confirmAlert({
+            title: 'Confirmar Logout',
+            message: 'Tem certeza que deseja fazer logout?',
+            buttons: [
+                {
+                    label: 'Não',
+                    onClick: () => {} 
+                },
+                {
+                    label: 'Sim',
+                    onClick: () => logout() 
+                }
+            ],
+            overlayClassName: "confirm-overlay" 
+        });
+    };
 
     return(
         <nav className='navbar'>
@@ -19,11 +39,11 @@ function Navbar(){
                 <NavLink to='/sobre' className='link'>Sobre Nós</NavLink>
 
                 { user && user.role === 'admin' &&(
-                    <NavLink to='/solicitacoes' className='link'>Requisições</NavLink>
+                    <NavLink to='/requisicoes' className='link'>Requisições</NavLink>
                 )}
             </div>
 
-            <button onClick={logout} className='logoutButton'>
+            <button onClick={handleLogoutClick} className='logoutButton'>
                 <img src={Logout} alt="Ícone de Logout" />
                 Logout
             </button>

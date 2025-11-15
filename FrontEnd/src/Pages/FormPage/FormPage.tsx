@@ -4,6 +4,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useLoading } from '../../Contexts/LoadingContext';
 import { useAuth } from '../../Contexts/AuthContext';
 import axios from 'axios';
+import { toast } from 'react-toastify'; 
 import Navbar from '../../Components/Navbar/Navbar';
 import Footer from '../../Components/Footer/Footer';
 import Form from '../../Components/Form/Form';
@@ -81,10 +82,13 @@ function FormPage(){
             if(user.role === 'admin'){
                 if(isEdit){
                     await axios.put(`http://localhost:8000/filmes/${id}`, data);
+                    toast.success('Filme atualizado com sucesso!');
                 } else {
                     await axios.post('http://localhost:8000/filmes', data);
+                    toast.success('Filme adicionado com sucesso!');
                 }
                 navigate('/filmes')
+
             } else if (user.role === 'user'){
                 let requestData;
                 if(isEdit){
@@ -101,15 +105,16 @@ function FormPage(){
                 }
 
                 await axios.post('http://localhost:8000/requests', requestData);
+                toast.info('Solicitação enviada para aprovação!')
                 navigate('/filmes')
             }
 
         } catch (err) {
             console.error("Erro ao enviar formulário:", err);
             if (axios.isAxiosError(err) && err.response) {
-                alert(`Erro: ${err.response.data.erro}`);
+                toast.error(`Erro: ${err.response.data.erro}`);
             } else {
-                alert('Ocorreu um erro inesperado.');
+                toast.error('Ocorreu um erro inesperado.');
             }
 
         } finally {

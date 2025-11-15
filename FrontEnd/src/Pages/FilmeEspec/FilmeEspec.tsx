@@ -4,6 +4,8 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useLoading } from '../../Contexts/LoadingContext';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { FreeMode } from 'swiper/modules';
+import { confirmAlert } from 'react-confirm-alert';
+import { toast } from 'react-toastify'; 
 import axios from 'axios';
 import 'swiper/css';
 import 'swiper/css/free-mode';
@@ -46,27 +48,39 @@ function FilmeEspec(){
 
     const handleDeleteFilme = async (id: number) => {
 
-        if (!window.confirm("Tem certeza que deseja deletar este filme? Esta ação é permanente.")) {
-            return;
-        }
-        
-        setIsLoading(true)
+        confirmAlert({
+            title: 'Confirmar Deleção',
+            message: 'Tem certeza que deseja deletar este filme? Esta ação é permanente.',
+            buttons: [
+                {
+                    label: 'Não, Cancelar',
+                    onClick: () => {}
+                },
+                
+                {
+                    label: 'Sim, Deletar',
+                    onClick: async () => {
+                        setIsLoading(true);
+                        try {
+                            await axios.delete(`http://localhost:8000/filmes/${id}`);
+                            toast.success("Filme deletado com sucesso!"); 
+                            navigate('/home'); 
 
-        try{
-            await axios.delete(`http://localhost:8000/filmes/${id}`)
-            navigate('/filmes')
-        
-        } catch (err) {
-            console.error("Erro ao deletar filme:", err);
-            if (axios.isAxiosError(err) && err.response) {
-                alert(`Erro: ${err.response.data.erro}`);
-            } else {
-                alert('Ocorreu um erro inesperado.');
-            }
+                        } catch (err) {
+                            if (axios.isAxiosError(err) && err.response) {
+                                toast.error(`Erro: ${err.response.data.erro}`);
+                            } else {
+                                toast.error('Ocorreu um erro inesperado.');
+                            }
 
-        } finally{
-            setIsLoading(false)
-        }
+                        } finally{
+                            setIsLoading(false)
+                        }
+                    }
+                }
+            ],
+            overlayClassName: "confirm-overlay"
+        });
     }
 
     useEffect(()=>{

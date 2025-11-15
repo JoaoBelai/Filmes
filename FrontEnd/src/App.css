@@ -16,3 +16,47 @@
   background-color: rgba(136, 136, 136, 0.5);
   z-index: 9999;
 }
+
+.react-confirm-alert-overlay.confirm-overlay{
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.react-confirm-alert {
+  border: 3px solid #6E28AF;
+  border-radius: 15px;
+}
+
+.react-confirm-alert-body h1 {
+  color: #000000; 
+  font-size: 1.6rem;
+  margin-bottom: 10px;
+}
+
+.react-confirm-alert-button-group {
+  justify-content: center;
+  gap: 20px; 
+}
+
+.react-confirm-alert-button-group button {
+  width: 90px;
+  height: 30px;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 20px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.react-confirm-alert-button-group button:first-child {
+  background: #6c757d; 
+}
+
+.react-confirm-alert-button-group button:last-child {
+  background: #6E28AF; 
+}
+
+.react-confirm-alert-button-group button:hover {
+  transform: translateY(-1px);
+  transform: scale(1.05);
+  transition: 200ms ease-in-out;
+}

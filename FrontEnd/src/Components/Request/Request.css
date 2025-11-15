@@ -1,0 +1,154 @@
+.request{
+    width: 1400px;
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 35px;
+    background-color: rgba(110, 40, 175, 0.7);
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.35);
+    border-radius: 10px;
+    margin-bottom: 80px;
+}
+
+.request.aberto{
+    box-shadow: 0;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    margin-bottom: 0px;
+}
+
+.request.add{
+    border-left: 15px solid #00A806;
+}
+
+.request.edit{
+    border-left: 15px solid #FF9500;
+}
+
+.requestInfos{
+    width: 700px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.requestButtons{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 50px;
+}
+
+.requestTipo{
+    width: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size:34px;
+    font-weight: 700;
+}
+
+.requestTitulo{
+    width: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    color: #fff;
+    font-size: 24px;
+    font-weight: 500; 
+}
+
+.acceptButton{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 150px;
+    height: 40px;
+    background-color: none;
+    border: none;
+    border-radius: 5px;
+    background-color: #00A806;
+    color: #fff;
+    font-size: 22px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.acceptButton img{
+    width: 30px;
+    height: 30px;
+}
+
+.refuseButton{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 150px;
+    height: 40px;
+    background-color: none;
+    border: none;
+    border-radius: 5px;
+    background-color: #C80A00;
+    color: #fff;
+    font-size: 22px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.refuseButton img{
+    width: 25px;
+    height: 25px;
+}
+
+.refuseButton:hover{
+    transform: scale(1.1);
+    transition: 300ms ease-in-out;
+}
+
+.acceptButton:hover{
+    transform: scale(1.1);
+    transition: 300ms ease-in-out;
+}
+
+.setaButton{
+    color: #fff;
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-top: 5px;
+}
+
+.setaButton:hover{
+    transform: scale(1.1);
+    transition: 300ms ease-in-out;
+}
+
+.requestMoreInfo{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 30px;
+    margin-left: 15px;
+    width: 1385px;
+    height: 300px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    background-color: rgba(110, 40, 175, 0.5);
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.35);
+    padding: 10px 40px;
+    margin-bottom: 80px;
+}
+
+.requestMoreInfo p{
+    color: #fff;
+    font-size: 16px;
+    font-weight: 500;
+}

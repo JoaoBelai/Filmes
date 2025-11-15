@@ -6,6 +6,7 @@ import Filmes from './Pages/Filmes/Filmes';
 import Login from './Pages/Login/Login';
 import FilmeEspec from './Pages/FilmeEspec/FilmeEspec';
 import FormPage from './Pages/FormPage/FormPage';
+import Requisicoes from './Pages/Requisicoes/Requisicoes';
 
 function AppRoutes(){
     return(
@@ -19,6 +20,7 @@ function AppRoutes(){
                 <Route path='/filmes/:id' element={<FilmeEspec/>}/>
                 <Route path='/form' element={<FormPage/>}/>
                 <Route path='/form/:id' element={<FormPage/>}/>
+                <Route path='/requisicoes' element={<Requisicoes/>}/>
             </Route>
             
         </Routes>

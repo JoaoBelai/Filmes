@@ -4,6 +4,9 @@ import AppRoutes from './AppRoutes';
 import { LoadingProvider, useLoading } from './Contexts/LoadingContext'; 
 import { AuthProvider } from './Contexts/AuthContext'
 import { ClipLoader } from 'react-spinners';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import 'react-confirm-alert/src/react-confirm-alert.css';
 
 function GlobalSpinner() {
   const { isLoading } = useLoading();
@@ -24,6 +27,18 @@ function App() {
       <LoadingProvider>
         <BrowserRouter>
           <AuthProvider>
+            <ToastContainer
+                position="top-right"
+                autoClose={5000} 
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="dark" 
+            />
 
             <GlobalSpinner />
 
