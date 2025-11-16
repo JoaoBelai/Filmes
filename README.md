@@ -153,6 +153,6 @@ Siga os passos na ordem correta para configurar o ambiente.
 
 ## 🎨 Design & Prototipação
 
-O protótipo de alta fidelidade do projeto foi desenvolvido no Figma e pode ser acessado no link abaixo:
+O protótipo de média fidelidade do projeto foi desenvolvido no Figma e pode ser acessado no link abaixo:
 
-[**Acessar o protótipo no Figma**](https://www.figma.com/design/lFC4fHrlFbGV9NW05fPErM/Untitled?node-id=263-398&t=3rVB9iyxLUeeyT59-1)
+[**Acessar o protótipo no Figma**](https://www.figma.com/design/lFC4fHrlFbGV9NW05fPErM/Untitled?node-id=0-1&t=1sJhobc3NbdrVTZR-1)
