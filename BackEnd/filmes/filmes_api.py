@@ -1,3 +1,9 @@
+"""
+Este módulo contém as funções que lidam diretamente com as requisições HTTP
+relacionadas a filmes, coordenando a autenticação, a interação com o banco
+de dados e a formatação das respostas
+"""
+
 import json
 from database.db_connection import get_session
 from filmes.querys_filmes import (
@@ -13,6 +19,10 @@ from filtros.filtros import handle_filmes_filter
 from users.auth import verificar_admin
 
 def _formatar_filmes_resposta(filmes_lista):
+    """
+    Função auxiliar privada para formatar os dados vindos do banco
+    Transforma strings de gêneros, diretores e elenco em listas
+    """
     for filme in filmes_lista:
         if filme.get('generos'): filme['generos'] = filme['generos'].split(', ')
         if filme.get('diretores'): filme['diretores'] = filme['diretores'].split(', ')
@@ -20,6 +30,12 @@ def _formatar_filmes_resposta(filmes_lista):
     return filmes_lista
 
 def _fetch_e_enviar(handler, query):
+    """
+    Função auxiliar privada para executar consultas GET simples.
+    Abstrai a lógica repetitiva de:
+    Obter conexão com o banco, executar uma query de busca (SELECT),
+    formatar a resposta, Enviar os dados formatados
+    """
     conn = get_session()
     if not conn:
         handler._enviar_resposta(500, {"erro": "Nao foi possivel conectar ao banco"})
@@ -38,7 +54,11 @@ def _fetch_e_enviar(handler, query):
         if conn and conn.is_connected(): conn.close()
 
 def get_filmes(handler, query_params):
-
+    """
+    Gerencia todas as requisições GET para /filmes
+    Decide qual lógica de busca aplicar com base na rota exata 
+    ou na presença de parâmetros de busca (filtros).
+    """
     if not query_params and handler.path == '/filmes/destaques':
         _fetch_e_enviar(handler, Q_GET_DESTAQUES)
 
@@ -56,17 +76,13 @@ def get_filmes(handler, query_params):
 
     elif not query_params and handler.path.startswith('/filmes/'):
         conn = get_session()
-
         if not conn:
             handler._enviar_resposta(500, {"erro": "Nao foi possivel conectar ao banco"})
             return
-
         cursor = None
         try:
             id_filme = int(handler.path.split('/')[-1])
-
             cursor = conn.cursor(dictionary=True)
-
             cursor.execute(Q_GET_ONE_FILME, (id_filme,))
             filme = cursor.fetchone()
 
@@ -89,39 +105,45 @@ def get_filmes(handler, query_params):
 
 
 def post_filmes(handler):
+    """
+    Gerencia requisições POST
+    1. Verifica se o usuário é Administrador
+    2. Lê e decodifica o JSON enviado no corpo da requisição
+    3. Inicia uma transação no banco
+    4. Insere o filme principal 
+    5. Insere e vincula categorias, diretores e atores nas tabelas
+    """
     user_payload = verificar_admin(handler)
-
     if not user_payload:
         return
     
     conn = get_session()
-
     if not conn:
         handler._enviar_resposta(500, {"erro": "Nao foi possivel conectar ao banco"})
         return
 
     cursor = None
     try:
+        # Lê o corpo (body) da requisição
         content_length = int(handler.headers['Content-Length'])
         body = handler.rfile.read(content_length).decode('utf-8')
         novo_filme = json.loads(body)
 
         cursor = conn.cursor(dictionary=True)
-
         conn.start_transaction()
+        
+        # Insere os dados principais na tabela 'filme'
         film_list =[
-            novo_filme.get('titulo'),
-            novo_filme.get('ano'),
-            novo_filme.get('duracao'),
-            novo_filme.get('sinopse'),
-            novo_filme.get('produtora'),
-            novo_filme.get('poster'),
+            novo_filme.get('titulo'), novo_filme.get('ano'),
+            novo_filme.get('duracao'), novo_filme.get('sinopse'),
+            novo_filme.get('produtora'), novo_filme.get('poster'),
             novo_filme.get('banner')
         ]
         cursor.execute(Q_INSERT_FILME, film_list)
-
         id_novo_filme = cursor.lastrowid
 
+        # Para cada item, insere se não existir e depois
+        # busca o ID para criar o vínculo na tabela de relação.
         for nome_categoria in novo_filme.get('generos', []):
             cursor.execute(Q_INSERT_CATEGORIA, (nome_categoria,))
             cursor.execute("SELECT id FROM categoria WHERE nome = %s", (nome_categoria,))
@@ -131,7 +153,6 @@ def post_filmes(handler):
             else:
                 raise Exception(f"Falha ao encontrar/criar categoria: {nome_categoria}")
 
-
         for nome_diretor in novo_filme.get('diretores', []):
             cursor.execute(Q_INSERT_DIRETOR, (nome_diretor,))
             cursor.execute("SELECT id FROM diretor WHERE nome = %s", (nome_diretor,))
@@ -140,7 +161,6 @@ def post_filmes(handler):
                 cursor.execute(Q_LINK_FILME_DIRETOR, (id_diretor_result['id'], id_novo_filme))
             else:
                 raise Exception(f"Falha ao encontrar/criar diretor: {nome_diretor}")
-
 
         for nome_ator in novo_filme.get('elenco', []):
             cursor.execute(Q_INSERT_ATOR, (nome_ator,))
@@ -162,23 +182,27 @@ def post_filmes(handler):
     
     except json.JSONDecodeError:
         handler._enviar_resposta(400, {"erro": "JSON invalido"})
-
     except Exception as e:
         if conn:
             conn.rollback()
             print(f"Trasação revertida. ERRO: {e}")
         handler._enviar_resposta(500, {"erro": f"Erro no servidor: {e}"})
-        
     finally:
-        if cursor:
-            cursor.close()
-        if conn and conn.is_connected():
-            conn.close()
+        if cursor: cursor.close()
+        if conn and conn.is_connected(): conn.close()
                 
 
 def delete_filmes(handler):
+    """
+    Gerencia requisições DELETE
+    
+    1. Verifica se o usuário é Administrador
+    2. Extrai o ID do filme da URL
+    3. Deleta o filme da tabela principal.
+    4. Verifica se a linha foi realmente deletada (rowcount) e
+       comita ou reverte a transação.
+    """
     user_payload = verificar_admin(handler)
-
     if not user_payload:
         return
     
@@ -190,12 +214,12 @@ def delete_filmes(handler):
     cursor = None
     try:
         id_filme = int(handler.path.split('/')[-1])
-
         cursor = conn.cursor()
         
         conn.start_transaction()
         cursor.execute(Q_DELETE_FILME, (id_filme,))
 
+        # Verifica se o filme existia e foi deletado
         if cursor.rowcount == 0:
             conn.rollback()
             print("Filme não encontrado")
@@ -206,23 +230,28 @@ def delete_filmes(handler):
 
     except (ValueError, IndexError, TypeError):
         handler._enviar_resposta(400, {"erro": "ID invalido"})
-
     except Exception as e:
         if conn:
             conn.rollback()
             print(f"Transação revertida. Erro: {e}")
         handler._enviar_resposta(500, {"erro": f"Erro no servidor: {e}"})
-
     finally:
-        if cursor:
-            cursor.close()
-        if conn and conn.is_connected():
-            conn.close()
+        if cursor: cursor.close()
+        if conn and conn.is_connected(): conn.close()
 
         
 def put_filmes(handler):
+    """
+    Gerencia requisições PUT 
+    
+    1. Verifica se o usuário é Administrador
+    2. Extrai o ID e lê o corpo (JSON) da requisição
+    3. Inicia uma transação
+    4. Atualiza os dados na tabela principal 'filme'
+    5. DELETA todos os vínculos antigos
+    6. Recria todos os vínculos com os novos dados 
+    """
     user_payload = verificar_admin(handler)
-
     if not user_payload:
         return
     
@@ -234,29 +263,29 @@ def put_filmes(handler):
     cursor = None
     try:
         id_filme = int(handler.path.split('/')[-1])
-
         content_length = int(handler.headers['Content-Length'])
         body = handler.rfile.read(content_length).decode('utf-8')
         dados_atualizados = json.loads(body)
 
         cursor = conn.cursor(dictionary=True)
-
         conn.start_transaction()
+        
+        # Atualiza os dados principais na tabela 'filme'
         film_list =[
-            dados_atualizados.get('titulo'),
-            dados_atualizados.get('ano'),
-            dados_atualizados.get('duracao'),
-            dados_atualizados.get('sinopse'),
-            dados_atualizados.get('produtora'),
-            dados_atualizados.get('poster'),
+            dados_atualizados.get('titulo'), dados_atualizados.get('ano'),
+            dados_atualizados.get('duracao'), dados_atualizados.get('sinopse'),
+            dados_atualizados.get('produtora'), dados_atualizados.get('poster'),
             dados_atualizados.get('banner'),
             id_filme
         ]
         cursor.execute(Q_UPDATE_FILME, film_list)
+
+        # Deleta todos os links antigos para evitar dados órfãos
         cursor.execute(Q_DELETE_LINKS_CATEGORIA, (id_filme,))
         cursor.execute(Q_DELETE_LINKS_DIRETOR, (id_filme,))
         cursor.execute(Q_DELETE_LINKS_ATOR, (id_filme,))
 
+        # Recria os links 
         for nome_categoria in dados_atualizados.get('generos', []):
             cursor.execute(Q_INSERT_CATEGORIA, (nome_categoria,))
             cursor.execute("SELECT id FROM categoria WHERE nome = %s", (nome_categoria,))
@@ -275,7 +304,6 @@ def put_filmes(handler):
             else:
                 raise Exception(f"Falha ao encontrar/criar diretor: {nome_diretor}")
 
-
         for nome_ator in dados_atualizados.get('elenco', []):
             cursor.execute(Q_INSERT_ATOR, (nome_ator,))
             cursor.execute("SELECT id FROM ator WHERE nome = %s", (nome_ator,))
@@ -286,21 +314,17 @@ def put_filmes(handler):
                 raise Exception(f"Falha ao encontrar/criar ator: {nome_ator}")
 
         conn.commit()
-
+        
         dados_atualizados['id'] = id_filme
         handler._enviar_resposta(200, dados_atualizados)
     
     except (ValueError, IndexError, TypeError):
         handler._enviar_resposta(400, {"erro": "ID invalido ou JSON malformado"})
-
     except Exception as e:
         if conn:
             conn.rollback()
             print(f"Transação revertida. Erro: {e}")
         handler._enviar_resposta(500, {"erro": f"Erro no servidor: {e}"})
-
     finally:
-        if cursor:
-            cursor.close()
-        if conn and conn.is_connected():
-            conn.close()
+        if cursor: cursor.close()
+        if conn and conn.is_connected(): conn.close()
