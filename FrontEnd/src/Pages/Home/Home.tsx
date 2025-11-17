@@ -1,3 +1,12 @@
+/*
+  Esta é a página principal do site.
+  Ela busca *todos* os filmes da API de uma só vez, embaralha a lista e
+  distribui os resultados em diferentes seções:
+  1. Um filme principal para o <Banner> (o primeiro da lista embaralhada).
+  2. Uma lista para o carrossel superior (os 7 primeiros).
+  3. Uma lista para a grade "Em Destaque" (os 6 seguintes, do 8º ao 14º).
+ */
+
 import './Home.css'
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -13,44 +22,57 @@ import BradPitt from '../../Assets/Images/BradPitt.png';
 import MargotRobbie from '../../Assets/Images/MargotRobbie.png';
 import MichelBJordan from '../../Assets/Images/MichelBJordan.png';
 
+// Tipagem do filme
 type FilmeInfo = {
-  id: number;
-  titulo: string;
-  generos: string[];
-  duracao: number;
-  poster: string;
-  imagem: string;
-  banner: string;
+    id: number;
+    titulo: string;
+    generos: string[];
+    duracao: number;
+    poster: string;
+    imagem: string;
+    banner: string;
 };
 
-function Home(){
+function Home() {
+    // Estado para os filmes do carrossel superior (os 7 primeiros)
     const [filmesCarrossel, setFilmesCarrossel] = useState<FilmeInfo[]>([])
+    // Estado para o filme que está em destaque no <Banner> principal
     const [filmeSelecionado, setFilmeSelecionado] = useState<FilmeInfo | null>(null);
+    // Estado para os filmes na grade "Em Destaque"
     const [filmesAleatorios, setFilmesAleatorios] = useState<FilmeInfo[]>([]);
 
     const { setIsLoading } = useLoading();
 
     const navigate = useNavigate()
 
-    useEffect(()=>{
+    // Efeito para buscar os filmes da API
+    useEffect(() => {
+        // Função assíncrona para buscar e distribuir os filmes
         const fetchFilmes = async () => {
             setIsLoading(true);
-            
-            try{
+
+            try {
+                // Busca *todos* os filmes do endpoint principal
                 const response = await axios.get<FilmeInfo[]>('http://localhost:8000/filmes');
                 const filmesRecebidos = response.data;
 
-                if(filmesRecebidos && filmesRecebidos.length > 0){
-                    
+                // Se a API retornar filmes...
+                if (filmesRecebidos && filmesRecebidos.length > 0) {
+
+                    // Embaralha a lista de filmes para dar variedade
                     const filmesEmbaralhados = shuffleArray(filmesRecebidos);
+
+                    // Define o primeiro filme embaralhado como o banner principal
                     setFilmeSelecionado(filmesEmbaralhados[0]);
-                    setFilmesCarrossel(filmesEmbaralhados.slice(0,7))
-                    setFilmesAleatorios(filmesEmbaralhados.slice(8,14));
+                    // Pega os 7 primeiros para o carrossel superior
+                    setFilmesCarrossel(filmesEmbaralhados.slice(0, 7))
+                    // Pega os 6 seguintes (do 8º ao 14º) para a grade "Destaque"
+                    setFilmesAleatorios(filmesEmbaralhados.slice(8, 14));
                 }
 
-            } catch (error){
+            } catch (error) {
                 console.error("Erro ao buscar filmes: ", error)
-            } finally{
+            } finally {
                 setIsLoading(false);
             }
         };
@@ -58,33 +80,40 @@ function Home(){
         fetchFilmes();
     }, []);
 
-    const handleSelecionarFilme = (filme: FilmeInfo) =>{
+    // Função chamada ao clicar em um card do carrossel superior
+    // Troca o filme em destaque no <Banner>
+    const handleSelecionarFilme = (filme: FilmeInfo) => {
         setFilmeSelecionado(filme)
     }
 
-    const handleRotaFilme = (id: Number) =>{
+    // Função chamada ao clicar em um card da grade "Destaque"
+    // Navega para a página de detalhes do filme
+    const handleRotaFilme = (id: Number) => {
         navigate(`/filmes/${id}`)
     }
 
+    // Algoritmo Fisher-Yates para embaralhar um array
+    // Cria uma cópia para não modificar o array original 
     function shuffleArray<T>(array: T[]): T[] {
-        let copiaArray = [...array]; 
-    
+        let copiaArray = [...array]; // Copia o array
+
         for (let i = copiaArray.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
-            [copiaArray[i], copiaArray[j]] = [copiaArray[j], copiaArray[i]];
+            [copiaArray[i], copiaArray[j]] = [copiaArray[j], copiaArray[i]]; // Troca
         }
-        
+
         return copiaArray;
     }
 
-    return(
+    return (
         <>
             <header className='headerHome'>
-                <Navbar/>   
+                <Navbar />
+                {/* Renderização condicional: Mostra o banner apenas se 'filmeSelecionado' existir */}
                 {filmeSelecionado && (
-                    <Banner 
-                        poster={filmeSelecionado.banner} 
-                        categoria={filmeSelecionado.generos} 
+                    <Banner
+                        poster={filmeSelecionado.banner}
+                        categoria={filmeSelecionado.generos}
                         link={`/filmes/${filmeSelecionado.id}`}
                     />
                 )}
@@ -92,15 +121,15 @@ function Home(){
 
             <main className='mainHome'>
                 <section className='carrosselFilmes'>
-                    {filmesCarrossel.map(filme =>(
-                        <Card 
+                    {filmesCarrossel.map(filme => (
+                        <Card
                             key={filme.id}
                             titulo={filme.titulo}
-                            categoria={filme.generos} 
+                            categoria={filme.generos}
                             tempo={String(filme.duracao)}
                             imagem={filme.poster}
 
-                            onCardClick={() => handleSelecionarFilme(filme)}                        
+                            onCardClick={() => handleSelecionarFilme(filme)}
                         />
                     ))}
                 </section>
@@ -109,20 +138,20 @@ function Home(){
                     <div className='mensagemBoasVindas'>
                         <h2>O Palco dos Melhores Filmes</h2>
                         <p>
-                            Aqui você encontra histórias que emocionam, surpreendem e ficam 
-                            com você por muito tempo. Explore filmes de diferentes estilos, épocas 
-                            e gêneros, mergulhe em universos cheios de imaginação e viva experiências 
-                            que vão além da tela. Prepare-se para sentir cada cena como se estivesse 
+                            Aqui você encontra histórias que emocionam, surpreendem e ficam
+                            com você por muito tempo. Explore filmes de diferentes estilos, épocas
+                            e gêneros, mergulhe em universos cheios de imaginação e viva experiências
+                            que vão além da tela. Prepare-se para sentir cada cena como se estivesse
                             dentro dela — seu catálogo cinematográfico favorito está aqui.
                         </p>
                         <p>
-                            Descubra novos títulos, revisite clássicos e encontre obras que permanecem 
+                            Descubra novos títulos, revisite clássicos e encontre obras que permanecem
                             na memória e no coração. Aqui, cada filme é um convite para viver algo único.
                         </p>
                     </div>
 
                     <figure className='imagemBoasVindas'>
-                        <img src={Forest} alt="Forest Gump Sentado em um banco olhando para esquerda"/>
+                        <img src={Forest} alt="Forest Gump Sentado em um banco olhando para esquerda" />
                     </figure>
                 </section>
 
@@ -130,16 +159,16 @@ function Home(){
                 <section className='destaque'>
                     <h1>EM DESTAQUE</h1>
                     <article className='filmesDestaque'>
-                        {filmesAleatorios.map(filme =>(
-                            <Card 
-                            key={filme.id}
-                            titulo={filme.titulo}
-                            categoria={filme.generos} 
-                            tempo={String(filme.duracao)}
-                            imagem={filme.poster}
+                        {filmesAleatorios.map(filme => (
+                            <Card
+                                key={filme.id}
+                                titulo={filme.titulo}
+                                categoria={filme.generos}
+                                tempo={String(filme.duracao)}
+                                imagem={filme.poster}
 
-                            onCardClick={() => handleRotaFilme(filme.id)}                        
-                        />
+                                onCardClick={() => handleRotaFilme(filme.id)}
+                            />
                         ))}
 
                     </article>
@@ -149,25 +178,25 @@ function Home(){
                     <h1>PRINCIPAIS ATORES</h1>
                     <article className='gridAtores'>
                         <Ator
-                           nome='Brad Pitt'
-                           nacionalidade='Americano' 
-                           foto={BradPitt}
+                            nome='Brad Pitt'
+                            nacionalidade='Americano'
+                            foto={BradPitt}
                         />
                         <Ator
-                           nome='Margot Robbie'
-                           nacionalidade='Australiana' 
-                           foto={MargotRobbie}
+                            nome='Margot Robbie'
+                            nacionalidade='Australiana'
+                            foto={MargotRobbie}
                         />
                         <Ator
-                           nome='Michael B. Jordan'
-                           nacionalidade='Americano' 
-                           foto={MichelBJordan}
+                            nome='Michael B. Jordan'
+                            nacionalidade='Americano'
+                            foto={MichelBJordan}
                         />
                     </article>
                 </section>
             </main>
 
-            <Footer className='footerHome'/>
+            <Footer className='footerHome' />
         </>
     );
 }
